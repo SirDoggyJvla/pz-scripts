@@ -1,9 +1,9 @@
 import * as vscode from "vscode";
 import { Position, TextDocument } from "vscode";
-import { PROPERTY_DESCRIPTIONS, CRAFT_RECIPE_DESCRIPTIONS } from "../models/constants";
+import { PROPERTY_DESCRIPTIONS, CRAFT_RECIPE_DESCRIPTIONS, getBlockType } from "../models/constants";
 import { provideDefinition } from "./definition";
 import path from "path";
-import {getBlockType} from '../utils/contextHelper';
+// import {getBlockType} from '../utils/contextHelper';
 import { itemBlockRegex } from "../models/regexPatterns";
 
 export class PZHoverProvider implements vscode.HoverProvider {
@@ -16,12 +16,13 @@ export class PZHoverProvider implements vscode.HoverProvider {
     if (!range) return null;
 
     const word = document.getText(range);
+    const lowerWord = word.toLowerCase();
 
     // 1. Hover pour les propriétés (PROPERTY_DESCRIPTIONS)
-    if (this.isPropertyDescription(word, document, position)) {
+    if (this.isPropertyDescription(lowerWord, document, position)) {
       const contents = new vscode.MarkdownString();
       contents.appendMarkdown(`**${word}**  \n`);
-      contents.appendMarkdown(this.getPropertyDescription(word, document, position));
+      contents.appendMarkdown(this.getPropertyDescription(lowerWord, document, position));
       return new vscode.Hover(contents);
     }
 
@@ -73,6 +74,7 @@ export class PZHoverProvider implements vscode.HoverProvider {
 
   private isPropertyDescription(word: string, document: TextDocument, position: Position): boolean {
     const blockType = getBlockType(document, position);
+    console.debug(`Checking property description for word: ${word} in block type: ${blockType}`);
     
     if (blockType === 'item') {
         return !!PROPERTY_DESCRIPTIONS[word];

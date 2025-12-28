@@ -11,44 +11,46 @@ export const defaultDir = path.normalize(
   "C:/Program Files (x86)/Steam/steamapps/common/ProjectZomboid/media/scripts/"
 );
 
-export function activate(context: vscode.ExtensionContext) {
-  vscode.workspace.onDidOpenTextDocument((document) => {
-    if (document.languageId === "plaintext") {
-      const config = vscode.workspace.getConfiguration("pzSyntaxExtension");
-      const pzFilenames = config.get<string[]>("pzFilenames", []);
+function handleOpenTextDocument(document: vscode.TextDocument) {
+  if (document.languageId === "plaintext") {
+    const config = vscode.workspace.getConfiguration("pzSyntaxExtension");
+    const pzFilenames = config.get<string[]>("pzFilenames", []);
 
-      // Vérification du nom de fichier avec regex
-      const fileName = path.basename(document.fileName);
-      const matchesPattern = pzFilenames.some(pattern => {
-        try {
-          const regex = new RegExp(pattern);
-          return regex.test(fileName);
-        } catch (e) {
-          // Si le pattern n'est pas une regex valide, faire une comparaison exacte
-          return pattern === fileName;
-        }
-      });
-
-      if (matchesPattern) {
-        console.debug(
-          `Fichier ${document.fileName} détecté comme un fichier de script PZ (par pattern).`
-        );
-        vscode.languages.setTextDocumentLanguage(document, "pz-scripting");
-        return;
+    // Vérification du nom de fichier avec regex
+    const fileName = path.basename(document.fileName);
+    const matchesPattern = pzFilenames.some(pattern => {
+      try {
+        const regex = new RegExp(pattern);
+        return regex.test(fileName);
+      } catch (e) {
+        // Si le pattern n'est pas une regex valide, faire une comparaison exacte
+        return pattern === fileName;
       }
+    });
 
-      // Vérification de la première ligne (existante)
-      const firstLine = document.lineAt(0).text;
-      const pattern = /^\s*module\s+\w+\s*\{?/;
-
-      if (pattern.test(firstLine)) {
-        console.debug(
-          `Fichier ${document.fileName} détecté comme un fichier de script PZ (par module).`
-        );
-        vscode.languages.setTextDocumentLanguage(document, "pz-scripting");
-      }
+    if (matchesPattern) {
+      console.debug(
+        `Fichier ${document.fileName} détecté comme un fichier de script PZ (par pattern).`
+      );
+      vscode.languages.setTextDocumentLanguage(document, "pz-scripting");
+      return;
     }
-  });
+
+    // Vérification de la première ligne (existante)
+    const firstLine = document.lineAt(0).text;
+    const pattern = /^\s*module\s+\w+\s*\{?/;
+
+    if (pattern.test(firstLine)) {
+      console.debug(
+        `Fichier ${document.fileName} détecté comme un fichier de script PZ (par module).`
+      );
+      vscode.languages.setTextDocumentLanguage(document, "pz-scripting");
+    }
+  }
+}
+
+export function activate(context: vscode.ExtensionContext) {
+  vscode.workspace.onDidOpenTextDocument(handleOpenTextDocument);
 
   console.log('Extension "pz-syntax-extension" is now active!');
   const diagnosticProvider = new DiagnosticProvider();
@@ -91,9 +93,13 @@ export function activate(context: vscode.ExtensionContext) {
       "pz-scripting",
       new PZHoverProvider()
     ),
+
+    // format document with right click > Format document
     vscode.languages.registerDocumentFormattingEditProvider("pz-scripting", {
       provideDocumentFormattingEdits,
     }),
+
+    // apparently used when ctrl + click something
     vscode.languages.registerDefinitionProvider("pz-scripting", {
       provideDefinition,
     })

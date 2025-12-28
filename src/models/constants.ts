@@ -1,3 +1,51 @@
+import { TextDocument, Position } from 'vscode';
+import SCRIPTS_TYPE from '../data/scriptBlocks.json'
+
+
+// check if the position of the doc is within a script block
+export function getBlockType(document: TextDocument, position: Position): 'item' | 'craftRecipe' | 'fixing' | null {
+    let currentLine = position.line;
+    console.debug("Checking block type for line: " + currentLine);
+    
+    while (currentLine >= 0) {
+        const line = document.lineAt(currentLine).text.trim();
+        // console.debug(line)
+        
+        if (line.includes('{')) {
+            const previousLine = currentLine > 0 ? document.lineAt(currentLine - 1).text.trim() : '';
+            // console.debug(previousLine)
+
+            //TODO: improve to check for every type of script block
+            if (previousLine.startsWith('item ')) {
+                console.debug("Detected item block");
+                return 'item';
+            }
+            if (previousLine.startsWith('craftRecipe ')) {
+                console.debug("Detected craftRecipe block");
+                return 'craftRecipe';
+            }
+            if (previousLine.startsWith('fixing ')) {
+                console.debug("Detected fixing block");
+                return 'fixing';
+            }
+            
+            return null;
+        }
+        currentLine--;
+    }
+    return null;
+}
+
+
+
+
+
+
+
+
+
+// DEPRECATED - use src/data/scriptBlocks.json instead
+
 export const VALID_KEYWORDS = {
   craftRecipe: [
     "timedAction",
@@ -600,16 +648,16 @@ export const PROPERTY_DESCRIPTIONS: { [key: string]: string } = {
 };
 
 export const CRAFT_RECIPE_DESCRIPTIONS: { [key: string]: string } = {
-  Time: "Crafting time in seconds\n*Example*: `Time = 120.0,`",
-  Result: 'Output item\n*Example*: `Result = "Base.WoodenPlank",`',
-  ResultCount: "Number of items produced\n*Example*: `ResultCount = 4,`",
-  SkillRequired:
+  time: "Crafting time in seconds\n*Example*: `Time = 120.0,`",
+  result: 'Output item\n*Example*: `Result = "Base.WoodenPlank",`',
+  resultcount: "Number of items produced\n*Example*: `ResultCount = 4,`",
+  skillrequired:
     'Required skill level\n*Example*: `SkillRequired = "Woodwork:2",`',
-  KeepOnUse: "Tool is not consumed\n*Values*: `true/false`",
-  NeedToBeLearned:
+  keeponuse: "Tool is not consumed\n*Values*: `true/false`",
+  needtobelearned:
     "Requires recipe knowledge\n*Example*: `NeedToBeLearned = true,`",
-  Category: "Crafting category\n*Values*: `Cooking, Carpentry, Electrical`",
-  Animations: "Animation ID for crafting action",
+  category: "Crafting category\n*Values*: `Cooking, Carpentry, Electrical`",
+  animations: "Animation ID for crafting action",
 };
 
 

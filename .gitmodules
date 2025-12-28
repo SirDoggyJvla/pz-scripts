@@ -1,0 +1,3 @@
+[submodule "external/pz-scripts-data"]
+	path = external/pz-scripts-data
+	url = https://github.com/SirDoggyJvla/pz-scripts-data.git
