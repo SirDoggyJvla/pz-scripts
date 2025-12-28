@@ -3,121 +3,121 @@
     "version": 1.0,
     "name": "animationsMesh",
     "description": "Defines an animated mesh, usually for characters or animals.",
-    "parameters": [
-      {
+    "parameters": {
+      "meshfile": {
         "name": "meshFile"
       },
-      {
+      "animationdirectory": {
         "name": "animationDirectory"
       },
-      {
+      "animationprefix": {
         "name": "animationPrefix"
       },
-      {
+      "keepmeshanimations": {
         "name": "keepMeshAnimations"
       },
-      {
+      "postprocess": {
         "name": "postProcess"
       }
-    ]
+    }
   },
   "model": {
     "version": 1.0,
     "name": "model",
     "description": "Defines a 3D model properties.",
-    "parameters": [
-      {
+    "parameters": {
+      "mesh": {
         "name": "mesh"
       },
-      {
+      "texture": {
         "name": "texture"
       },
-      {
+      "attachment": {
         "name": "attachment"
       },
-      {
+      "scale": {
         "name": "scale"
       },
-      {
+      "shader": {
         "name": "shader"
       },
-      {
+      "static": {
         "name": "static"
       },
-      {
+      "animationsmesh": {
         "name": "animationsMesh"
       },
-      {
+      "undocorescale": {
         "name": "undoCoreScale"
       },
-      {
+      "postprocess": {
         "name": "postProcess"
       },
-      {
+      "colorred": {
         "name": "ColorRed"
       },
-      {
+      "colorgreen": {
         "name": "ColorGreen"
       },
-      {
+      "colorblue": {
         "name": "ColorBlue"
       },
-      {
+      "invertx": {
         "name": "invertX"
       },
-      {
+      "boneweight": {
         "name": "boneWeight"
       },
-      {
+      "specialkeyring": {
         "name": "specialKeyRing"
       },
-      {
+      "cullface": {
         "name": "cullFace"
       }
-    ]
+    }
   },
   "timedAction": {
     "version": 1.0,
     "name": "timedAction",
     "description": "Defines a callable action sound and/or animation.",
-    "parameters": [
-      {
+    "parameters": {
+      "metabolics": {
         "name": "metabolics"
       },
-      {
+      "actionanim": {
         "name": "actionAnim"
       },
-      {
+      "sound": {
         "name": "sound"
       },
-      {
+      "prop1": {
         "name": "prop1"
       },
-      {
+      "prop2": {
         "name": "prop2"
       },
-      {
+      "musclestrainfactor": {
         "name": "muscleStrainFactor"
       },
-      {
+      "musclestrainskill": {
         "name": "muscleStrainSkill"
       },
-      {
+      "musclestrainparts": {
         "name": "muscleStrainParts"
       },
-      {
+      "soundtime": {
         "name": "soundTime"
       },
-      {
+      "animvarkey": {
         "name": "animVarKey"
       },
-      {
+      "animvarval": {
         "name": "animVarVal"
       },
-      {
+      "completionsound": {
         "name": "completionSound"
       }
-    ]
+    }
   },
   "energy": {
     "version": 1.0,
@@ -129,275 +129,276 @@
     "version": 1.0,
     "name": "craftRecipe",
     "description": "Defines a crafting recipe.",
-    "parameters": [
-      {
-        "name": "name"
-      },
-      {
+    "parameters": {
+      "inputs": {
         "name": "inputs"
       },
-      {
+      "outputs": {
         "name": "outputs"
       },
-      {
+      "itemmappers": {
         "name": "itemMappers"
       },
-      {
-        "name": "time"
+      "time": {
+        "name": "time",
+        "description": "The time it takes to craft the item, not using a specific unit of time."
       },
-      {
-        "name": "timedAction"
+      "timedaction": {
+        "name": "timedAction",
+        "description": "The timed action script to trigger during crafting. Used to trigger animations and/or sounds."
       },
-      {
-        "name": "tags"
+      "tags": {
+        "name": "tags",
+        "description": "Tags to define the special behavior of the recipe."
       },
-      {
-        "name": "category"
+      "category": {
+        "name": "category",
+        "description": "The category under which the recipe will be listed in the crafting menu."
       },
-      {
+      "overlaystyle": {
         "name": "overlayStyle"
       },
-      {
-        "name": "default"
-      },
-      {
+      "oncreate": {
         "name": "OnCreate"
       },
-      {
-        "name": "SkillRequired"
+      "skillrequired": {
+        "name": "SkillRequired",
+        "description": "The skill required to craft the item."
       },
-      {
-        "name": "NeedToBeLearn"
+      "needtobelearn": {
+        "name": "NeedToBeLearn",
+        "description": "Whether the recipe needs to be learned before it can be crafted."
       },
-      {
-        "name": "xpAward"
+      "xpaward": {
+        "name": "xpAward",
+        "description": "The amount of experience points awarded upon crafting the item."
       },
-      {
+      "autolearnall": {
         "name": "AutoLearnAll"
       },
-      {
+      "metarecipe": {
         "name": "MetaRecipe"
       },
-      {
+      "ontest": {
         "name": "OnTest"
       },
-      {
+      "tooltip": {
         "name": "Tooltip"
       },
-      {
+      "autolearnany": {
         "name": "AutoLearnAny"
       },
-      {
+      "recipegroup": {
         "name": "recipeGroup"
       },
-      {
+      "allowbatchcraft": {
         "name": "AllowBatchCraft"
       },
-      {
+      "icon": {
         "name": "Icon"
       },
-      {
+      "researchskilllevel": {
         "name": "ResearchSkillLevel"
       },
-      {
+      "researchany": {
         "name": "ResearchAny"
       }
-    ]
+    }
   },
   "sound": {
     "version": 1.0,
     "name": "sound",
     "description": "Defines a sound properties.",
-    "parameters": [
-      {
+    "parameters": {
+      "category": {
         "name": "category"
       },
-      {
+      "clip": {
         "name": "clip"
       },
-      {
+      "master": {
         "name": "master"
       },
-      {
+      "loop": {
         "name": "loop"
       },
-      {
+      "maxinstancesperemitter": {
         "name": "maxInstancesPerEmitter"
       }
-    ]
+    }
   },
   "entity": {
     "version": 1.0,
     "name": "entity",
     "description": "Defines a tile with special properties.",
-    "parameters": [
-      {
+    "parameters": {
+      "name": {
         "name": "name"
       },
-      {
+      "inputs": {
         "name": "inputs"
       },
-      {
+      "outputs": {
         "name": "outputs"
       },
-      {
+      "timedaction": {
         "name": "timedAction"
       },
-      {
+      "time": {
         "name": "time"
       },
-      {
+      "skillrequired": {
         "name": "SkillRequired"
       },
-      {
+      "xpaward": {
         "name": "xpAward"
       },
-      {
+      "category": {
         "name": "category"
       },
-      {
+      "tags": {
         "name": "tags"
       },
-      {
+      "tooltip": {
         "name": "Tooltip"
       },
-      {
+      "spriteoutputs": {
         "name": "spriteOutputs"
       },
-      {
+      "skillbasehealth": {
         "name": "skillBaseHealth"
       },
-      {
+      "uiconfig": {
         "name": "UiConfig"
       },
-      {
+      "resources": {
         "name": "Resources"
       },
-      {
+      "dryingcraftlogic": {
         "name": "DryingCraftLogic"
       },
-      {
+      "health": {
         "name": "health"
       },
-      {
+      "spriteoverlayconfig": {
         "name": "SpriteOverlayConfig"
       },
-      {
+      "craftbenchsounds": {
         "name": "CraftBenchSounds"
       },
-      {
+      "isprop": {
         "name": "isProp"
       },
-      {
+      "craftbench": {
         "name": "CraftBench"
       },
-      {
+      "isthumpable": {
         "name": "isThumpable"
       },
-      {
+      "contextmenuconfig": {
         "name": "ContextMenuConfig"
       },
-      {
+      "oncreate": {
         "name": "OnCreate"
       },
-      {
+      "onisvalid": {
         "name": "OnIsValid"
       },
-      {
+      "timedactiononisvalid": {
         "name": "TimedActionOnIsValid"
       },
-      {
+      "corner": {
         "name": "corner"
       },
-      {
+      "dontneedframe": {
         "name": "dontNeedFrame"
       },
-      {
+      "breaksound": {
         "name": "BreakSound"
       },
-      {
+      "onaddtomenu": {
         "name": "OnAddToMenu"
       },
-      {
+      "canbepadlocked": {
         "name": "canBePadlocked"
       },
-      {
+      "needtobeagainstwall": {
         "name": "needToBeAgainstWall"
       },
-      {
+      "needtobelearn": {
         "name": "NeedToBeLearn"
       },
-      {
+      "needwindowframe": {
         "name": "needWindowFrame"
       },
-      {
+      "fluidcontainer": {
         "name": "FluidContainer"
       },
-      {
+      "bonushealth": {
         "name": "bonusHealth"
       },
-      {
+      "lightradius": {
         "name": "lightRadius"
       },
-      {
+      "lightsourceitem": {
         "name": "lightsourceItem"
       },
-      {
+      "lightsourcefuel": {
         "name": "lightsourceFuel"
       },
-      {
+      "debugitem": {
         "name": "debugItem"
       },
-      {
+      "logicclass": {
         "name": "LogicClass"
       },
-      {
+      "previousstage": {
         "name": "previousStage"
       },
-      {
+      "ispole": {
         "name": "isPole"
       },
-      {
+      "wallcoveringconfig": {
         "name": "WallCoveringConfig"
       }
-    ]
+    }
   },
   "evolvedrecipe": {
     "version": 1.0,
     "name": "evolvedrecipe",
     "description": "Defines a dynamic recipe.",
-    "parameters": [
-      {
+    "parameters": {
+      "baseitem": {
         "name": "BaseItem"
       },
-      {
+      "maxitems": {
         "name": "MaxItems"
       },
-      {
+      "resultitem": {
         "name": "ResultItem"
       },
-      {
+      "cookable": {
         "name": "Cookable"
       },
-      {
+      "name": {
         "name": "Name"
       },
-      {
+      "template": {
         "name": "Template"
       },
-      {
+      "minimumwater": {
         "name": "MinimumWater"
       },
-      {
+      "canaddspicesempty": {
         "name": "CanAddSpicesEmpty"
       },
-      {
+      "addingredientifcooked": {
         "name": "AddIngredientIfCooked"
       },
-      {
+      "addingredientsound": {
         "name": "AddIngredientSound"
       }
-    ]
+    }
   },
   "animation": {
     "version": 1.0,
@@ -415,238 +416,238 @@
     "version": 1.0,
     "name": "vehicle",
     "description": "Defines a vehicle.",
-    "parameters": [
-      {
+    "parameters": {
+      "neverspawnkey": {
         "name": "neverSpawnKey"
       },
-      {
+      "model": {
         "name": "model"
       },
-      {
+      "spawnoffsety": {
         "name": "spawnOffsetY"
       },
-      {
+      "skin": {
         "name": "skin"
       },
-      {
+      "extents": {
         "name": "extents"
       },
-      {
+      "mass": {
         "name": "mass"
       },
-      {
+      "centerofmassoffset": {
         "name": "centerOfMassOffset"
       },
-      {
+      "shadowextents": {
         "name": "shadowExtents"
       },
-      {
+      "shadowoffset": {
         "name": "shadowOffset"
       },
-      {
+      "physicschassisshape": {
         "name": "physicsChassisShape"
       },
-      {
+      "attachment": {
         "name": "attachment"
       },
-      {
+      "part": {
         "name": "part"
       },
-      {
+      "usechassisphysicscollision": {
         "name": "useChassisPhysicsCollision"
       },
-      {
+      "physics": {
         "name": "physics"
       },
-      {
+      "mechanictype": {
         "name": "mechanicType"
       },
-      {
+      "enginerepairlevel": {
         "name": "engineRepairLevel"
       },
-      {
+      "playerdamageprotection": {
         "name": "playerDamageProtection"
       },
-      {
+      "enginerpmtype": {
         "name": "engineRPMType"
       },
-      {
+      "texturemask": {
         "name": "textureMask"
       },
-      {
+      "texturelights": {
         "name": "textureLights"
       },
-      {
+      "texturedamage1overlay": {
         "name": "textureDamage1Overlay"
       },
-      {
+      "texturedamage2overlay": {
         "name": "textureDamage2Overlay"
       },
-      {
+      "texturedamage1shell": {
         "name": "textureDamage1Shell"
       },
-      {
+      "texturedamage2shell": {
         "name": "textureDamage2Shell"
       },
-      {
+      "texturerust": {
         "name": "textureRust"
       },
-      {
+      "sound": {
         "name": "sound"
       },
-      {
+      "engineforce": {
         "name": "engineForce"
       },
-      {
+      "maxspeed": {
         "name": "maxSpeed"
       },
-      {
+      "engineloudness": {
         "name": "engineLoudness"
       },
-      {
+      "enginequality": {
         "name": "engineQuality"
       },
-      {
+      "brakingforce": {
         "name": "brakingForce"
       },
-      {
+      "stoppingmovementforce": {
         "name": "stoppingMovementForce"
       },
-      {
+      "rollinfluence": {
         "name": "rollInfluence"
       },
-      {
+      "steeringincrement": {
         "name": "steeringIncrement"
       },
-      {
+      "steeringclamp": {
         "name": "steeringClamp"
       },
-      {
+      "suspensionstiffness": {
         "name": "suspensionStiffness"
       },
-      {
+      "suspensioncompression": {
         "name": "suspensionCompression"
       },
-      {
+      "suspensiondamping": {
         "name": "suspensionDamping"
       },
-      {
+      "maxsuspensiontravelcm": {
         "name": "maxSuspensionTravelCm"
       },
-      {
+      "suspensionrestlength": {
         "name": "suspensionRestLength"
       },
-      {
+      "wheelfriction": {
         "name": "wheelFriction"
       },
-      {
+      "frontendhealth": {
         "name": "frontEndHealth"
       },
-      {
+      "rearendhealth": {
         "name": "rearEndHealth"
       },
-      {
+      "seats": {
         "name": "seats"
       },
-      {
+      "wheel": {
         "name": "wheel"
       },
-      {
+      "area": {
         "name": "area"
       },
-      {
+      "gearratiocount": {
         "name": "gearRatioCount"
       },
-      {
+      "gearratior": {
         "name": "gearRatioR"
       },
-      {
+      "gearratio1": {
         "name": "gearRatio1"
       },
-      {
+      "gearratio2": {
         "name": "gearRatio2"
       },
-      {
+      "gearratio3": {
         "name": "gearRatio3"
       },
-      {
+      "gearratio4": {
         "name": "gearRatio4"
       },
-      {
+      "extentsoffset": {
         "name": "extentsOffset"
       },
-      {
+      "lightbar": {
         "name": "lightbar"
       },
-      {
+      "offroadefficiency": {
         "name": "offRoadEfficiency"
       },
-      {
+      "issmallvehicle": {
         "name": "isSmallVehicle"
       },
-      {
+      "zombietype": {
         "name": "zombieType"
       },
-      {
+      "passenger": {
         "name": "passenger"
       },
-      {
+      "specialkeyring": {
         "name": "specialKeyRing"
       },
-      {
+      "carmechanicsoverlay": {
         "name": "carMechanicsOverlay"
       },
-      {
+      "carmodelname": {
         "name": "carModelName"
       },
-      {
+      "specialkeyringchance": {
         "name": "specialKeyRingChance"
       },
-      {
+      "gearratio5": {
         "name": "gearRatio5"
       },
-      {
+      "speciallootchance": {
         "name": "specialLootChance"
       },
-      {
+      "animaltrailersize": {
         "name": "animalTrailerSize"
       },
-      {
+      "seatnumber": {
         "name": "seatNumber"
       }
-    ]
+    }
   },
   "fluid": {
     "version": 1.0,
     "name": "fluid",
     "description": "Defines a fluid.",
-    "parameters": [
-      {
+    "parameters": {
+      "colorreference": {
         "name": "ColorReference"
       },
-      {
+      "displayname": {
         "name": "DisplayName"
       },
-      {
+      "categories": {
         "name": "Categories"
       },
-      {
+      "properties": {
         "name": "Properties"
       },
-      {
+      "poison": {
         "name": "Poison"
       },
-      {
+      "blendwhitelist": {
         "name": "BlendWhiteList"
       }
-    ]
+    }
   },
   "item": {
     "version": 1.0,
     "name": "item",
     "description": "Defines an item to register.",
-    "parameters": [
-      {
+    "parameters": {
+      "displaycategory": {
         "name": "DisplayCategory",
         "itemTypes": [
           "alarmclock",
@@ -666,7 +667,7 @@
           "weaponpart"
         ]
       },
-      {
+      "itemtype": {
         "name": "ItemType",
         "itemTypes": [
           "alarmclock",
@@ -686,7 +687,7 @@
           "weaponpart"
         ]
       },
-      {
+      "weight": {
         "name": "Weight",
         "itemTypes": [
           "alarmclock",
@@ -706,7 +707,7 @@
           "weaponpart"
         ]
       },
-      {
+      "icon": {
         "name": "Icon",
         "itemTypes": [
           "alarmclock",
@@ -726,7 +727,7 @@
           "weaponpart"
         ]
       },
-      {
+      "metalvalue": {
         "name": "MetalValue",
         "itemTypes": [
           "alarmclock",
@@ -740,7 +741,7 @@
           "weaponpart"
         ]
       },
-      {
+      "worldstaticmodel": {
         "name": "WorldStaticModel",
         "itemTypes": [
           "alarmclock",
@@ -759,7 +760,7 @@
           "weaponpart"
         ]
       },
-      {
+      "tags": {
         "name": "Tags",
         "itemTypes": [
           "alarmclock",
@@ -778,14 +779,14 @@
           "weaponpart"
         ]
       },
-      {
+      "alarmsound": {
         "name": "AlarmSound",
         "itemTypes": [
           "alarmclock",
           "alarmclockclothing"
         ]
       },
-      {
+      "soundradius": {
         "name": "SoundRadius",
         "itemTypes": [
           "alarmclock",
@@ -794,7 +795,7 @@
           "weapon"
         ]
       },
-      {
+      "bodylocation": {
         "name": "BodyLocation",
         "itemTypes": [
           "alarmclockclothing",
@@ -803,7 +804,7 @@
           "normal"
         ]
       },
-      {
+      "clothingextrasubmenu": {
         "name": "ClothingExtraSubmenu",
         "itemTypes": [
           "alarmclockclothing",
@@ -811,7 +812,7 @@
           "container"
         ]
       },
-      {
+      "clothingitem": {
         "name": "ClothingItem",
         "itemTypes": [
           "alarmclockclothing",
@@ -820,7 +821,7 @@
           "radio"
         ]
       },
-      {
+      "clothingitemextra": {
         "name": "ClothingItemExtra",
         "itemTypes": [
           "alarmclockclothing",
@@ -828,7 +829,7 @@
           "container"
         ]
       },
-      {
+      "clothingitemextraoption": {
         "name": "ClothingItemExtraOption",
         "itemTypes": [
           "alarmclockclothing",
@@ -836,14 +837,14 @@
           "container"
         ]
       },
-      {
+      "cosmetic": {
         "name": "Cosmetic",
         "itemTypes": [
           "alarmclockclothing",
           "clothing"
         ]
       },
-      {
+      "bloodlocation": {
         "name": "BloodLocation",
         "itemTypes": [
           "clothing",
@@ -852,28 +853,28 @@
           "radio"
         ]
       },
-      {
+      "fabrictype": {
         "name": "FabricType",
         "itemTypes": [
           "clothing",
           "normal"
         ]
       },
-      {
+      "insulation": {
         "name": "Insulation",
         "itemTypes": [
           "clothing",
           "normal"
         ]
       },
-      {
+      "windresistance": {
         "name": "WindResistance",
         "itemTypes": [
           "clothing",
           "normal"
         ]
       },
-      {
+      "runspeedmodifier": {
         "name": "RunSpeedModifier",
         "itemTypes": [
           "clothing",
@@ -881,20 +882,20 @@
           "radio"
         ]
       },
-      {
+      "scratchdefense": {
         "name": "ScratchDefense",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "discomfortmodifier": {
         "name": "DiscomfortModifier",
         "itemTypes": [
           "clothing",
           "container"
         ]
       },
-      {
+      "researchablerecipes": {
         "name": "Researchablerecipes",
         "itemTypes": [
           "clothing",
@@ -907,13 +908,13 @@
           "weapon"
         ]
       },
-      {
+      "waterresistance": {
         "name": "WaterResistance",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "canhaveholes": {
         "name": "CanHaveHoles",
         "itemTypes": [
           "clothing",
@@ -921,20 +922,20 @@
           "normal"
         ]
       },
-      {
+      "chancetofall": {
         "name": "ChanceToFall",
         "itemTypes": [
           "clothing",
           "normal"
         ]
       },
-      {
+      "visualaid": {
         "name": "VisualAid",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "iconsfortexture": {
         "name": "IconsForTexture",
         "itemTypes": [
           "clothing",
@@ -946,13 +947,13 @@
           "weapon"
         ]
       },
-      {
+      "visionmodifier": {
         "name": "VisionModifier",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "colorblue": {
         "name": "ColorBlue",
         "itemTypes": [
           "clothing",
@@ -962,7 +963,7 @@
           "weapon"
         ]
       },
-      {
+      "colorgreen": {
         "name": "ColorGreen",
         "itemTypes": [
           "clothing",
@@ -972,7 +973,7 @@
           "weapon"
         ]
       },
-      {
+      "colorred": {
         "name": "ColorRed",
         "itemTypes": [
           "clothing",
@@ -982,13 +983,13 @@
           "weapon"
         ]
       },
-      {
+      "bitedefense": {
         "name": "BiteDefense",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "tooltip": {
         "name": "Tooltip",
         "itemTypes": [
           "clothing",
@@ -1004,14 +1005,14 @@
           "weaponpart"
         ]
       },
-      {
+      "combatspeedmodifier": {
         "name": "CombatSpeedModifier",
         "itemTypes": [
           "clothing",
           "container"
         ]
       },
-      {
+      "breaksound": {
         "name": "BreakSound",
         "itemTypes": [
           "clothing",
@@ -1019,58 +1020,58 @@
           "weapon"
         ]
       },
-      {
+      "bullethitarmoursound": {
         "name": "BulletHitArmourSound",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "weaponhitarmoursound": {
         "name": "WeaponHitArmourSound",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "shouttype": {
         "name": "ShoutType",
         "itemTypes": [
           "clothing",
           "normal"
         ]
       },
-      {
+      "shoutmultiplier": {
         "name": "ShoutMultiplier",
         "itemTypes": [
           "clothing",
           "normal"
         ]
       },
-      {
+      "hearingmodifier": {
         "name": "HearingModifier",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "corpsesicknessdefense": {
         "name": "CorpseSicknessDefense",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "attachmentsprovided": {
         "name": "AttachmentsProvided",
         "itemTypes": [
           "clothing",
           "container"
         ]
       },
-      {
+      "neckprotectionmodifier": {
         "name": "NeckProtectionModifier",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "oncreate": {
         "name": "OnCreate",
         "itemTypes": [
           "clothing",
@@ -1083,20 +1084,20 @@
           "weapon"
         ]
       },
-      {
+      "withoutdrainable": {
         "name": "WithoutDrainable",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "keepondeplete": {
         "name": "KeepOnDeplete",
         "itemTypes": [
           "clothing",
           "drainable"
         ]
       },
-      {
+      "conditionmax": {
         "name": "ConditionMax",
         "itemTypes": [
           "clothing",
@@ -1108,7 +1109,7 @@
           "weapon"
         ]
       },
-      {
+      "conditionlowerchanceonein": {
         "name": "ConditionLowerChanceOneIn",
         "itemTypes": [
           "clothing",
@@ -1116,13 +1117,13 @@
           "weapon"
         ]
       },
-      {
+      "withdrainable": {
         "name": "WithDrainable",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "activateditem": {
         "name": "ActivatedItem",
         "itemTypes": [
           "clothing",
@@ -1130,31 +1131,31 @@
           "weaponpart"
         ]
       },
-      {
+      "bulletdefense": {
         "name": "BulletDefense",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "spawnwith": {
         "name": "SpawnWith",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "removeonbroken": {
         "name": "RemoveOnBroken",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "stomppower": {
         "name": "StompPower",
         "itemTypes": [
           "clothing"
         ]
       },
-      {
+      "staticmodel": {
         "name": "StaticModel",
         "itemTypes": [
           "clothing",
@@ -1169,7 +1170,7 @@
           "weaponpart"
         ]
       },
-      {
+      "eattype": {
         "name": "EatType",
         "itemTypes": [
           "clothing",
@@ -1179,7 +1180,7 @@
           "weapon"
         ]
       },
-      {
+      "replaceinprimaryhand": {
         "name": "ReplaceInPrimaryHand",
         "itemTypes": [
           "clothing",
@@ -1189,7 +1190,7 @@
           "radio"
         ]
       },
-      {
+      "replaceinsecondhand": {
         "name": "ReplaceInSecondHand",
         "itemTypes": [
           "clothing",
@@ -1199,7 +1200,7 @@
           "radio"
         ]
       },
-      {
+      "component": {
         "name": "component",
         "itemTypes": [
           "clothing",
@@ -1208,51 +1209,51 @@
           "weapon"
         ]
       },
-      {
+      "attachmentreplacement": {
         "name": "AttachmentReplacement",
         "itemTypes": [
           "container",
           "radio"
         ]
       },
-      {
+      "canbeequipped": {
         "name": "CanBeEquipped",
         "itemTypes": [
           "container",
           "radio"
         ]
       },
-      {
+      "capacity": {
         "name": "Capacity",
         "itemTypes": [
           "container"
         ]
       },
-      {
+      "closesound": {
         "name": "CloseSound",
         "itemTypes": [
           "container"
         ]
       },
-      {
+      "opensound": {
         "name": "OpenSound",
         "itemTypes": [
           "container"
         ]
       },
-      {
+      "putinsound": {
         "name": "PutInSound",
         "itemTypes": [
           "container"
         ]
       },
-      {
+      "weightreduction": {
         "name": "WeightReduction",
         "itemTypes": [
           "container"
         ]
       },
-      {
+      "equipsound": {
         "name": "EquipSound",
         "itemTypes": [
           "container",
@@ -1260,19 +1261,19 @@
           "weapon"
         ]
       },
-      {
+      "soundparameter": {
         "name": "SoundParameter",
         "itemTypes": [
           "container"
         ]
       },
-      {
+      "maxitemsize": {
         "name": "MaxItemSize",
         "itemTypes": [
           "container"
         ]
       },
-      {
+      "medical": {
         "name": "Medical",
         "itemTypes": [
           "container",
@@ -1281,14 +1282,14 @@
           "normal"
         ]
       },
-      {
+      "book_subject": {
         "name": "book_subject",
         "itemTypes": [
           "container",
           "literature"
         ]
       },
-      {
+      "worldstaticmodelsbyindex": {
         "name": "WorldStaticModelsByIndex",
         "itemTypes": [
           "container",
@@ -1299,13 +1300,13 @@
           "weapon"
         ]
       },
-      {
+      "acceptitemfunction": {
         "name": "AcceptItemFunction",
         "itemTypes": [
           "container"
         ]
       },
-      {
+      "survivalgear": {
         "name": "SurvivalGear",
         "itemTypes": [
           "container",
@@ -1316,7 +1317,7 @@
           "weapon"
         ]
       },
-      {
+      "usedelta": {
         "name": "UseDelta",
         "itemTypes": [
           "drainable",
@@ -1325,7 +1326,7 @@
           "weaponpart"
         ]
       },
-      {
+      "usewhileequipped": {
         "name": "UseWhileEquipped",
         "itemTypes": [
           "drainable",
@@ -1334,13 +1335,13 @@
           "radio"
         ]
       },
-      {
+      "replaceondeplete": {
         "name": "ReplaceOnDeplete",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "canstorewater": {
         "name": "CanStoreWater",
         "itemTypes": [
           "drainable",
@@ -1348,7 +1349,7 @@
           "weapon"
         ]
       },
-      {
+      "cookingsound": {
         "name": "CookingSound",
         "itemTypes": [
           "drainable",
@@ -1356,7 +1357,7 @@
           "normal"
         ]
       },
-      {
+      "pourtype": {
         "name": "PourType",
         "itemTypes": [
           "drainable",
@@ -1364,21 +1365,21 @@
           "normal"
         ]
       },
-      {
+      "fillfromdispensersound": {
         "name": "FillFromDispenserSound",
         "itemTypes": [
           "drainable",
           "normal"
         ]
       },
-      {
+      "fillfromtapsound": {
         "name": "FillFromTapSound",
         "itemTypes": [
           "drainable",
           "normal"
         ]
       },
-      {
+      "iscookable": {
         "name": "IsCookable",
         "itemTypes": [
           "drainable",
@@ -1387,13 +1388,13 @@
           "weapon"
         ]
       },
-      {
+      "iswatersource": {
         "name": "IsWaterSource",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "rainfactor": {
         "name": "RainFactor",
         "itemTypes": [
           "drainable",
@@ -1401,7 +1402,7 @@
           "weapon"
         ]
       },
-      {
+      "eattime": {
         "name": "Eattime",
         "itemTypes": [
           "drainable",
@@ -1409,7 +1410,7 @@
           "normal"
         ]
       },
-      {
+      "iconcolormask": {
         "name": "IconColorMask",
         "itemTypes": [
           "drainable",
@@ -1418,33 +1419,33 @@
           "weapon"
         ]
       },
-      {
+      "makeuptype": {
         "name": "MakeUpType",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "canteat": {
         "name": "CantEat",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "animalfeedtype": {
         "name": "AnimalFeedType",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "cantbeconsolided": {
         "name": "cantBeConsolided",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "disappearonuse": {
         "name": "DisappearOnUse",
         "itemTypes": [
           "drainable",
@@ -1452,47 +1453,47 @@
           "weaponpart"
         ]
       },
-      {
+      "conditionlowerstandard": {
         "name": "ConditionLowerStandard",
         "itemTypes": [
           "drainable",
           "normal"
         ]
       },
-      {
+      "consolidateoption": {
         "name": "ConsolidateOption",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "lightdistance": {
         "name": "LightDistance",
         "itemTypes": [
           "drainable",
           "weaponpart"
         ]
       },
-      {
+      "lightstrength": {
         "name": "LightStrength",
         "itemTypes": [
           "drainable",
           "weaponpart"
         ]
       },
-      {
+      "ticksperequipuse": {
         "name": "ticksPerEquipUse",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "torchcone": {
         "name": "TorchCone",
         "itemTypes": [
           "drainable",
           "weaponpart"
         ]
       },
-      {
+      "weightempty": {
         "name": "WeightEmpty",
         "itemTypes": [
           "drainable",
@@ -1500,7 +1501,7 @@
           "normal"
         ]
       },
-      {
+      "soundmap": {
         "name": "SoundMap",
         "itemTypes": [
           "drainable",
@@ -1509,21 +1510,21 @@
           "weaponpart"
         ]
       },
-      {
+      "cantbefrozen": {
         "name": "CantBeFrozen",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "evolvedrecipe": {
         "name": "EvolvedRecipe",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "packaged": {
         "name": "Packaged",
         "itemTypes": [
           "drainable",
@@ -1531,21 +1532,21 @@
           "normal"
         ]
       },
-      {
+      "spice": {
         "name": "Spice",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "hungerchange": {
         "name": "HungerChange",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "unhappychange": {
         "name": "UnhappyChange",
         "itemTypes": [
           "drainable",
@@ -1553,7 +1554,7 @@
           "literature"
         ]
       },
-      {
+      "calories": {
         "name": "Calories",
         "itemTypes": [
           "drainable",
@@ -1561,7 +1562,7 @@
           "normal"
         ]
       },
-      {
+      "carbohydrates": {
         "name": "Carbohydrates",
         "itemTypes": [
           "drainable",
@@ -1569,7 +1570,7 @@
           "normal"
         ]
       },
-      {
+      "lipids": {
         "name": "Lipids",
         "itemTypes": [
           "drainable",
@@ -1577,7 +1578,7 @@
           "normal"
         ]
       },
-      {
+      "proteins": {
         "name": "Proteins",
         "itemTypes": [
           "drainable",
@@ -1585,21 +1586,21 @@
           "normal"
         ]
       },
-      {
+      "foodtype": {
         "name": "FoodType",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "evolvedrecipename": {
         "name": "EvolvedRecipeName",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "firefuelratio": {
         "name": "FireFuelRatio",
         "itemTypes": [
           "drainable",
@@ -1608,14 +1609,14 @@
           "weapon"
         ]
       },
-      {
+      "torchdot": {
         "name": "TorchDot",
         "itemTypes": [
           "drainable",
           "weaponpart"
         ]
       },
-      {
+      "primaryanimmask": {
         "name": "primaryAnimMask",
         "itemTypes": [
           "drainable",
@@ -1623,7 +1624,7 @@
           "weaponpart"
         ]
       },
-      {
+      "secondaryanimmask": {
         "name": "secondaryAnimMask",
         "itemTypes": [
           "drainable",
@@ -1631,7 +1632,7 @@
           "weaponpart"
         ]
       },
-      {
+      "attachmenttype": {
         "name": "AttachmentType",
         "itemTypes": [
           "drainable",
@@ -1640,13 +1641,13 @@
           "weapon"
         ]
       },
-      {
+      "replaceonextinguish": {
         "name": "ReplaceOnExtinguish",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "doubleclickrecipe": {
         "name": "DoubleClickRecipe",
         "itemTypes": [
           "drainable",
@@ -1655,14 +1656,14 @@
           "normal"
         ]
       },
-      {
+      "fatiguechange": {
         "name": "fatigueChange",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "stresschange": {
         "name": "StressChange",
         "itemTypes": [
           "drainable",
@@ -1670,32 +1671,32 @@
           "literature"
         ]
       },
-      {
+      "alcoholpower": {
         "name": "AlcoholPower",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "scaleworldicon": {
         "name": "ScaleWorldIcon",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "useworlditem": {
         "name": "UseWorldItem",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "oneat": {
         "name": "OnEat",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "customcontextmenu": {
         "name": "CustomContextMenu",
         "itemTypes": [
           "drainable",
@@ -1703,14 +1704,14 @@
           "normal"
         ]
       },
-      {
+      "foodsicknesschange": {
         "name": "FoodSicknessChange",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "customeatsound": {
         "name": "CustomEatSound",
         "itemTypes": [
           "drainable",
@@ -1718,34 +1719,34 @@
           "normal"
         ]
       },
-      {
+      "requireinhandorinventory": {
         "name": "RequireInHandOrInventory",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "inversecoughprobability": {
         "name": "InverseCoughProbability",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "inversecoughprobabilitysmoker": {
         "name": "InverseCoughProbabilitySmoker",
         "itemTypes": [
           "drainable",
           "food"
         ]
       },
-      {
+      "usewhileunequipped": {
         "name": "UseWhileUnequipped",
         "itemTypes": [
           "drainable"
         ]
       },
-      {
+      "unequipsound": {
         "name": "UnequipSound",
         "itemTypes": [
           "drainable",
@@ -1753,152 +1754,152 @@
           "weapon"
         ]
       },
-      {
+      "vehicletype": {
         "name": "VehicleType",
         "itemTypes": [
           "drainable",
           "normal"
         ]
       },
-      {
+      "chancetospawndamaged": {
         "name": "ChanceToSpawnDamaged",
         "itemTypes": [
           "drainable",
           "normal"
         ]
       },
-      {
+      "mechanicsitem": {
         "name": "MechanicsItem",
         "itemTypes": [
           "drainable",
           "normal"
         ]
       },
-      {
+      "replaceonuse": {
         "name": "ReplaceOnUse",
         "itemTypes": [
           "food",
           "normal"
         ]
       },
-      {
+      "daysfresh": {
         "name": "DaysFresh",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "daystotallyrotten": {
         "name": "DaysTotallyRotten",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "goodhot": {
         "name": "GoodHot",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "minutestocook": {
         "name": "MinutesToCook",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "minutestoburn": {
         "name": "MinutesToBurn",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "thirstchange": {
         "name": "ThirstChange",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "removeunhappinesswhencooked": {
         "name": "RemoveUnhappinessWhenCooked",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "dangerousuncooked": {
         "name": "DangerousUncooked",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "badcold": {
         "name": "BadCold",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "boredomchange": {
         "name": "BoredomChange",
         "itemTypes": [
           "food",
           "literature"
         ]
       },
-      {
+      "badinmicrowave": {
         "name": "BadInMicrowave",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "replaceonrotten": {
         "name": "ReplaceOnRotten",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "isdung": {
         "name": "IsDung",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "oncooked": {
         "name": "OnCooked",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "fishinglure": {
         "name": "FishingLure",
         "itemTypes": [
           "food",
           "normal"
         ]
       },
-      {
+      "replaceoncooked": {
         "name": "ReplaceOnCooked",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "removenegativeeffectoncooked": {
         "name": "RemoveNegativeEffectOnCooked",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "cannedfood": {
         "name": "CannedFood",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "openingrecipe": {
         "name": "OpeningRecipe",
         "itemTypes": [
           "food",
           "normal"
         ]
       },
-      {
+      "staticmodelsbyindex": {
         "name": "StaticModelsByIndex",
         "itemTypes": [
           "food",
@@ -1906,133 +1907,133 @@
           "normal"
         ]
       },
-      {
+      "herbalisttype": {
         "name": "HerbalistType",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "painreduction": {
         "name": "painReduction",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "flureduction": {
         "name": "fluReduction",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "endurancechange": {
         "name": "enduranceChange",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "poisonpower": {
         "name": "PoisonPower",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "reduceinfectionpower": {
         "name": "ReduceInfectionPower",
         "itemTypes": [
           "food"
         ]
       },
-      {
+      "originx": {
         "name": "OriginX",
         "itemTypes": [
           "key"
         ]
       },
-      {
+      "originy": {
         "name": "OriginY",
         "itemTypes": [
           "key"
         ]
       },
-      {
+      "originz": {
         "name": "originZ",
         "itemTypes": [
           "key"
         ]
       },
-      {
+      "digitalpadlock": {
         "name": "DigitalPadlock",
         "itemTypes": [
           "key"
         ]
       },
-      {
+      "padlock": {
         "name": "Padlock",
         "itemTypes": [
           "key"
         ]
       },
-      {
+      "learnedrecipes": {
         "name": "LearnedRecipes",
         "itemTypes": [
           "literature"
         ]
       },
-      {
+      "readtype": {
         "name": "ReadType",
         "itemTypes": [
           "literature"
         ]
       },
-      {
+      "canbewrite": {
         "name": "CanBeWrite",
         "itemTypes": [
           "literature"
         ]
       },
-      {
+      "pagetowrite": {
         "name": "PageToWrite",
         "itemTypes": [
           "literature"
         ]
       },
-      {
+      "magazine_subject": {
         "name": "magazine_subject",
         "itemTypes": [
           "literature"
         ]
       },
-      {
+      "lvlskilltrained": {
         "name": "LvlSkillTrained",
         "itemTypes": [
           "literature"
         ]
       },
-      {
+      "numlevelstrained": {
         "name": "NumLevelsTrained",
         "itemTypes": [
           "literature"
         ]
       },
-      {
+      "numberofpages": {
         "name": "NumberOfPages",
         "itemTypes": [
           "literature"
         ]
       },
-      {
+      "skilltrained": {
         "name": "SkillTrained",
         "itemTypes": [
           "literature"
         ]
       },
-      {
+      "map": {
         "name": "Map",
         "itemTypes": [
           "map"
         ]
       },
-      {
+      "worldobjectsprite": {
         "name": "WorldObjectSprite",
         "itemTypes": [
           "moveable",
@@ -2040,7 +2041,7 @@
           "radio"
         ]
       },
-      {
+      "requiresequippedbothhands": {
         "name": "RequiresEquippedBothHands",
         "itemTypes": [
           "moveable",
@@ -2048,1104 +2049,1104 @@
           "weapon"
         ]
       },
-      {
+      "sharpness": {
         "name": "Sharpness",
         "itemTypes": [
           "normal",
           "weapon"
         ]
       },
-      {
+      "iconfluidmask": {
         "name": "IconFluidMask",
         "itemTypes": [
           "normal",
           "weapon"
         ]
       },
-      {
+      "fillfromlakesound": {
         "name": "FillFromLakeSound",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "fillfromtoiletsound": {
         "name": "FillFromToiletSound",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "headcondition": {
         "name": "HeadCondition",
         "itemTypes": [
           "normal",
           "weapon"
         ]
       },
-      {
+      "headconditionlowerchancemultiplier": {
         "name": "HeadConditionLowerChanceMultiplier",
         "itemTypes": [
           "normal",
           "weapon"
         ]
       },
-      {
+      "alwayswelcomegift": {
         "name": "AlwaysWelcomeGift",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "count": {
         "name": "count",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "remotecontroller": {
         "name": "RemoteController",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "remoterange": {
         "name": "RemoteRange",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "soundvolume": {
         "name": "SoundVolume",
         "itemTypes": [
           "normal",
           "weapon"
         ]
       },
-      {
+      "mediacategory": {
         "name": "MediaCategory",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "alcoholic": {
         "name": "Alcoholic",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "bandagepower": {
         "name": "BandagePower",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "canbandage": {
         "name": "CanBandage",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "itemaftercleaning": {
         "name": "ItemAfterCleaning",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "dropsound": {
         "name": "DropSound",
         "itemTypes": [
           "normal",
           "weapon"
         ]
       },
-      {
+      "placeonesound": {
         "name": "PlaceOneSound",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "equippednosprint": {
         "name": "EquippedNoSprint",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "protectfromrainwhenequipped": {
         "name": "ProtectFromRainWhenEquipped",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "itemwhendry": {
         "name": "ItemWhenDry",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "wet": {
         "name": "Wet",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "wetcooldown": {
         "name": "WetCooldown",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "digtype": {
         "name": "DigType",
         "itemTypes": [
           "normal",
           "weapon"
         ]
       },
-      {
+      "trap": {
         "name": "Trap",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "maxcapacity": {
         "name": "MaxCapacity",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "conditionloweroffroad": {
         "name": "ConditionLowerOffroad",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "wheelfriction": {
         "name": "wheelFriction",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "brakeforce": {
         "name": "brakeForce",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "suspensiondamping": {
         "name": "suspensionDamping",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "suspensioncompression": {
         "name": "suspensionCompression",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "conditionaffectscapacity": {
         "name": "ConditionAffectsCapacity",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "engineloudness": {
         "name": "engineLoudness",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "placemultiplesound": {
         "name": "PlaceMultipleSound",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "ammotype": {
         "name": "AmmoType",
         "itemTypes": [
           "normal",
           "weapon"
         ]
       },
-      {
+      "canstack": {
         "name": "CanStack",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "guntype": {
         "name": "GunType",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "maxammo": {
         "name": "MaxAmmo",
         "itemTypes": [
           "normal",
           "weapon"
         ]
       },
-      {
+      "vehiclepartmodel": {
         "name": "VehiclePartModel",
         "itemTypes": [
           "normal"
         ]
       },
-      {
+      "basevolumerange": {
         "name": "BaseVolumeRange",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "ishightier": {
         "name": "IsHighTier",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "isportable": {
         "name": "IsPortable",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "istelevision": {
         "name": "IsTelevision",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "maxchannel": {
         "name": "MaxChannel",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "micrange": {
         "name": "MicRange",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "minchannel": {
         "name": "MinChannel",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "transmitrange": {
         "name": "TransmitRange",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "twoway": {
         "name": "TwoWay",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "usesbattery": {
         "name": "UsesBattery",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "acceptmediatype": {
         "name": "AcceptMediaType",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "notransmit": {
         "name": "NoTransmit",
         "itemTypes": [
           "radio"
         ]
       },
-      {
+      "basespeed": {
         "name": "BaseSpeed",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "categories": {
         "name": "Categories",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "critdmgmultiplier": {
         "name": "CritDmgMultiplier",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "criticalchance": {
         "name": "CriticalChance",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "damagecategory": {
         "name": "DamageCategory",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "damagemakehole": {
         "name": "DamageMakeHole",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "doordamage": {
         "name": "DoorDamage",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "doorhitsound": {
         "name": "DoorHitSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "hitfloorsound": {
         "name": "HitFloorSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "hitsound": {
         "name": "HitSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "knockbackonnodeath": {
         "name": "KnockBackOnNoDeath",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "knockdownmod": {
         "name": "KnockdownMod",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "maxdamage": {
         "name": "MaxDamage",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "maxhitcount": {
         "name": "MaxHitcount",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "maxrange": {
         "name": "MaxRange",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "minangle": {
         "name": "MinAngle",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "mindamage": {
         "name": "MinDamage",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "minrange": {
         "name": "MinRange",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "minimumswingtime": {
         "name": "MinimumSwingtime",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "pushbackmod": {
         "name": "PushBackMod",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "splatbloodonnodeath": {
         "name": "SplatBloodOnNoDeath",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "splatnumber": {
         "name": "SplatNumber",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "subcategory": {
         "name": "SubCategory",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "swingamountbeforeimpact": {
         "name": "SwingAmountBeforeImpact",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "swinganim": {
         "name": "SwingAnim",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "swingsound": {
         "name": "SwingSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "swingtime": {
         "name": "Swingtime",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "treedamage": {
         "name": "TreeDamage",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "weaponlength": {
         "name": "WeaponLength",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "weaponspritesbyindex": {
         "name": "WeaponSpritesByIndex",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "weaponsprite": {
         "name": "WeaponSprite",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "closekillmove": {
         "name": "CloseKillMove",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "weaponweight": {
         "name": "WeaponWeight",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "impactsound": {
         "name": "ImpactSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "idleanim": {
         "name": "IdleAnim",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "runanim": {
         "name": "RunAnim",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "twohandweapon": {
         "name": "TwoHandWeapon",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "explosionpower": {
         "name": "ExplosionPower",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "explosionrange": {
         "name": "ExplosionRange",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "explosionsound": {
         "name": "ExplosionSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "firestartingenergy": {
         "name": "FireStartingEnergy",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "firestartingchance": {
         "name": "FireStartingChance",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "physicsobject": {
         "name": "PhysicsObject",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "placedsprite": {
         "name": "PlacedSprite",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "useself": {
         "name": "UseSelf",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "triggerexplosiontimer": {
         "name": "triggerExplosionTimer",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "canbeplaced": {
         "name": "CanBePlaced",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "canberemote": {
         "name": "CanBeRemote",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "explosiontimer": {
         "name": "ExplosionTimer",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "sensorrange": {
         "name": "SensorRange",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "firerange": {
         "name": "FireRange",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "canbereused": {
         "name": "CanBeReused",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "noiseduration": {
         "name": "NoiseDuration",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "noiserange": {
         "name": "NoiseRange",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "explosionduration": {
         "name": "ExplosionDuration",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "smokerange": {
         "name": "SmokeRange",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "canbarricade": {
         "name": "CanBarricade",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "onbreak": {
         "name": "OnBreak",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "endurancemod": {
         "name": "EnduranceMod",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "headconditionmax": {
         "name": "HeadConditionMax",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "hitanglemod": {
         "name": "HitAngleMod",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "splatsize": {
         "name": "SplatSize",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "alwaysknockdown": {
         "name": "AlwaysKnockdown",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "cantattackwithlowestendurance": {
         "name": "CantAttackWithLowestEndurance",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "aimingperkcritmodifier": {
         "name": "AimingPerkCritModifier",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "aimingperkhitchancemodifier": {
         "name": "AimingPerkHitChanceModifier",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "aimingperkminanglemodifier": {
         "name": "AimingPerkMinAngleModifier",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "aimingperkrangemodifier": {
         "name": "AimingPerkRangeModifier",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "aimreleasesound": {
         "name": "AimReleaseSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "aimingtime": {
         "name": "Aimingtime",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "ammobox": {
         "name": "AmmoBox",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "bringtobearsound": {
         "name": "BringToBearSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "clicksound": {
         "name": "ClickSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "ejectammosound": {
         "name": "EjectAmmoSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "ejectammostartsound": {
         "name": "EjectAmmoStartSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "ejectammostopsound": {
         "name": "EjectAmmoStopSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "firemode": {
         "name": "FireMode",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "firemodepossibilities": {
         "name": "FireModePossibilities",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "cyclicratemultiplier": {
         "name": "CyclicRateMultiplier",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "hitchance": {
         "name": "HitChance",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "insertammosound": {
         "name": "InsertAmmoSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "insertammostartsound": {
         "name": "InsertAmmoStartSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "insertammostopsound": {
         "name": "InsertAmmoStopSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "isaimedfirearm": {
         "name": "IsAimedFirearm",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "jamgunchance": {
         "name": "JamGunChance",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "magazinetype": {
         "name": "MagazineType",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "minsightrange": {
         "name": "MinSightRange",
         "itemTypes": [
           "weapon",
           "weaponpart"
         ]
       },
-      {
+      "maxsightrange": {
         "name": "MaxSightRange",
         "itemTypes": [
           "weapon",
           "weaponpart"
         ]
       },
-      {
+      "modelweaponpart": {
         "name": "ModelWeaponPart",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "multiplehitconditionaffected": {
         "name": "MultipleHitConditionAffected",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "muzzleflashmodelkey": {
         "name": "MuzzleFlashModelKey",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "npcsoundboost": {
         "name": "NPCSoundBoost",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "piercingbullets": {
         "name": "PiercingBullets",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "projectilecount": {
         "name": "Projectilecount",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "racksound": {
         "name": "RackSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "ranged": {
         "name": "Ranged",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "recoildelay": {
         "name": "RecoilDelay",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "reloadtime": {
         "name": "Reloadtime",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "shellfallsound": {
         "name": "ShellFallSound",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "soundgain": {
         "name": "SoundGain",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "stoppower": {
         "name": "StopPower",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "tohitmodifier": {
         "name": "ToHitModifier",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "useendurance": {
         "name": "UseEndurance",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "weaponreloadtype": {
         "name": "WeaponReloadType",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "clipsize": {
         "name": "ClipSize",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "aimingmod": {
         "name": "AimingMod",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "anglefalloff": {
         "name": "AngleFalloff",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "havechamber": {
         "name": "HaveChamber",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "needtobeclosedoncereload": {
         "name": "needtobeclosedoncereload",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "insertallbulletsreload": {
         "name": "InsertAllBulletsReload",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "isaimedhandweapon": {
         "name": "IsAimedHandWeapon",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "projectilespread": {
         "name": "ProjectileSpread",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "projectileweightcenter": {
         "name": "ProjectileWeightCenter",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "rackaftershoot": {
         "name": "RackAfterShoot",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "rangefalloff": {
         "name": "RangeFalloff",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "manuallyremovespentrounds": {
         "name": "ManuallyRemoveSpentRounds",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "otherhanduse": {
         "name": "OtherHandUse",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "otherhandrequire": {
         "name": "OtherHandRequire",
         "itemTypes": [
           "weapon"
         ]
       },
-      {
+      "weightmodifier": {
         "name": "WeightModifier",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "aimingtimemodifier": {
         "name": "AimingTimeModifier",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "mounton": {
         "name": "MountOn",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "parttype": {
         "name": "PartType",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "canattach": {
         "name": "CanAttach",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "candetach": {
         "name": "CanDetach",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "reloadtimemodifier": {
         "name": "ReloadTimeModifier",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "lowlightbonus": {
         "name": "LowLightBonus",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "recoildelaymodifier": {
         "name": "RecoilDelayModifier",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "hitchancemodifier": {
         "name": "HitChanceModifier",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "projectilespreadmodifier": {
         "name": "ProjectileSpreadModifier",
         "itemTypes": [
           "weaponpart"
         ]
       },
-      {
+      "maxrangemodifier": {
         "name": "MaxRangeModifier",
         "itemTypes": [
           "weaponpart"
         ]
       }
-    ]
+    }
   },
   "fixing": {
     "version": 1.0,
@@ -3169,28 +3170,28 @@
     "version": 1.0,
     "name": "mannequin",
     "description": "Defines a mannequin tile properties.",
-    "parameters": [
-      {
+    "parameters": {
+      "female": {
         "name": "female"
       },
-      {
+      "model": {
         "name": "model"
       },
-      {
+      "texture": {
         "name": "texture"
       },
-      {
+      "animset": {
         "name": "animSet"
       },
-      {
+      "animstate": {
         "name": "animState"
       },
-      {
+      "pose": {
         "name": "pose"
       },
-      {
+      "outfit": {
         "name": "outfit"
       }
-    ]
+    }
   }
 }

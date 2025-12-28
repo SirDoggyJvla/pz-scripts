@@ -1,35 +1,49 @@
 import { TextDocument, Position } from 'vscode';
-import SCRIPTS_TYPE from '../data/scriptBlocks.json'
+import SCRIPTS_TYPES from '../data/scriptBlocks.json';
 
+// generates a regex pattern to match any script block line
+const blockNames = Object.keys(SCRIPTS_TYPES);
+const blockPattern = new RegExp(
+  `^\\s*(${blockNames.join('|')})\\s+.*\\{.*$`
+);
+
+// detects if a line is starting a script block and returns the block type
+function isScriptBlockLine(line: string): string | null {
+  const match = line.match(blockPattern);
+  return match ? match[1] : null;
+}
 
 // check if the position of the doc is within a script block
-export function getBlockType(document: TextDocument, position: Position): 'item' | 'craftRecipe' | 'fixing' | null {
+export function getBlockType(document: TextDocument, position: Position): string | null {
     let currentLine = position.line;
-    console.debug("Checking block type for line: " + currentLine);
-    
-    while (currentLine >= 0) {
-        const line = document.lineAt(currentLine).text.trim();
-        // console.debug(line)
-        
-        if (line.includes('{')) {
-            const previousLine = currentLine > 0 ? document.lineAt(currentLine - 1).text.trim() : '';
-            // console.debug(previousLine)
 
-            //TODO: improve to check for every type of script block
-            if (previousLine.startsWith('item ')) {
-                console.debug("Detected item block");
-                return 'item';
+    while (currentLine >= 0) {
+        let line = document.lineAt(currentLine).text.trim();
+        const nextLine = currentLine + 1 < document.lineCount ? document.lineAt(currentLine + 1).text.trim() : '';
+
+        line = line + " " + nextLine;
+        // console.debug(line)
+
+        const blockName = isScriptBlockLine(line);
+        if (blockName) {
+          // check the line has { or the next line has {
+          if (line.endsWith('{')) {
+            console.debug("Detected " + blockName + " block");            
+            return blockName;
+          } else {
+            const nextLineNum = currentLine + 1;
+            if (nextLineNum < document.lineCount) {
+              const nextLine = document.lineAt(nextLineNum).text.trim();
+              if (nextLine.startsWith('{')) {
+                console.debug("Detected " + blockName + " block");                
+                return blockName;
+              }
             }
-            if (previousLine.startsWith('craftRecipe ')) {
-                console.debug("Detected craftRecipe block");
-                return 'craftRecipe';
-            }
-            if (previousLine.startsWith('fixing ')) {
-                console.debug("Detected fixing block");
-                return 'fixing';
-            }
-            
-            return null;
+          }
+
+
+          console.debug("Detected " + blockName + " block");            
+          return blockName;
         }
         currentLine--;
     }
@@ -37,6 +51,46 @@ export function getBlockType(document: TextDocument, position: Position): 'item'
 }
 
 
+
+export function getDescription(word: string, blockType: string): string | null {
+  console.debug("Getting description for word (", word, ") in block type (", blockType, ")");
+  // first check if word is a script block type
+  if (word == blockType) {
+    console.debug("Found word as block type:", word);
+    const blockData = SCRIPTS_TYPES[blockType as keyof typeof SCRIPTS_TYPES];
+    if (blockData) {
+      if (blockData.description) {
+        return blockData.description;
+      } else {
+        return "No description available for script block type.";
+      }
+    }
+  }
+  
+  // const word_blockData = SCRIPTS_TYPES[word as keyof typeof SCRIPTS_TYPES];
+  // if (word_blockData && word_blockData.description) {
+  //   return word_blockData.description;
+  // }
+
+  // then check if word is a parameter of the block type
+  const blockData = SCRIPTS_TYPES[blockType as keyof typeof SCRIPTS_TYPES];
+  console.debug("blockData:", blockData);
+  const lowerWord = word.toLowerCase();
+  if (blockData.parameters && lowerWord in blockData.parameters) {
+    console.debug("Found parameter:", lowerWord);
+    const paramData = (blockData.parameters as Record<string, any>)[lowerWord];
+    if (paramData) {
+      console.debug("Parameter description:", paramData.description);
+      if (paramData.description) {
+        return paramData.description;
+      } else {
+        return "No description available for parameter.";
+      }
+    }
+  }
+
+  return null;
+}
 
 
 

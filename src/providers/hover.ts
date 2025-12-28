@@ -1,9 +1,8 @@
 import * as vscode from "vscode";
 import { Position, TextDocument } from "vscode";
-import { PROPERTY_DESCRIPTIONS, CRAFT_RECIPE_DESCRIPTIONS, getBlockType } from "../models/constants";
+import { PROPERTY_DESCRIPTIONS, CRAFT_RECIPE_DESCRIPTIONS, getBlockType, getDescription } from "../models/constants";
 import { provideDefinition } from "./definition";
 import path from "path";
-// import {getBlockType} from '../utils/contextHelper';
 import { itemBlockRegex } from "../models/regexPatterns";
 
 export class PZHoverProvider implements vscode.HoverProvider {
@@ -18,11 +17,22 @@ export class PZHoverProvider implements vscode.HoverProvider {
     const word = document.getText(range);
     const lowerWord = word.toLowerCase();
 
+    // check in a block type, else skip hover
+    const blockType = getBlockType(document, position);
+    
+    console.debug("Hover requested for word:", word, "in block type:", blockType);
+    
+    if (!blockType) {
+      return null;
+    }
+
     // 1. Hover pour les propriétés (PROPERTY_DESCRIPTIONS)
-    if (this.isPropertyDescription(lowerWord, document, position)) {
+    const desc = getDescription(word, blockType);
+    console.debug(desc);
+    if (desc && desc.length > 0) {
       const contents = new vscode.MarkdownString();
       contents.appendMarkdown(`**${word}**  \n`);
-      contents.appendMarkdown(this.getPropertyDescription(lowerWord, document, position));
+      contents.appendMarkdown(desc);
       return new vscode.Hover(contents);
     }
 
@@ -70,21 +80,6 @@ export class PZHoverProvider implements vscode.HoverProvider {
     }
 
     return null;
-  }
-
-  private isPropertyDescription(word: string, document: TextDocument, position: Position): boolean {
-    const blockType = getBlockType(document, position);
-    console.debug(`Checking property description for word: ${word} in block type: ${blockType}`);
-    
-    if (blockType === 'item') {
-        return !!PROPERTY_DESCRIPTIONS[word];
-    }
-    
-    if (blockType === 'craftRecipe') {
-        return !!CRAFT_RECIPE_DESCRIPTIONS[word];
-    }
-    
-    return false;
   }
 
   private getPropertyDescription(word: string, document: TextDocument, position: Position): string {
