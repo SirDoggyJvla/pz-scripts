@@ -5,7 +5,7 @@ import {
   CompletionItemKind,
 } from "vscode";
 import * as vscode from "vscode";
-import { PROPERTY_DESCRIPTIONS } from "../models/constants";
+import { PROPERTY_DESCRIPTIONS } from "../models/scriptData";
 
 export class PZCompletionItemProvider implements vscode.CompletionItemProvider {
   provideCompletionItems(

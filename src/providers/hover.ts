@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { Position, TextDocument } from "vscode";
-import { getBlockType, getDescription } from "../models/constants";
+import { getBlockType, getDescription } from "../models/scriptData";
 import { provideDefinition } from "./definition";
 import path from "path";
 import { itemBlockRegex } from "../models/regexPatterns";

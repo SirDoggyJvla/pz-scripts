@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { Position, TextDocument, Diagnostic } from "vscode";
 import { scriptBlockRegex } from '../models/regexPatterns';
 import { DiagnosticType, formatDiagnostic } from '../models/enums';
-import { isScriptBlock } from '../models/constants';
+import { isScriptBlock } from '../models/scriptData';
 import { type } from 'os';
 
 /**

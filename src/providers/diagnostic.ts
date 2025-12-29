@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { VALID_KEYWORDS, isScriptBlock } from "../models/constants";
+import { VALID_KEYWORDS, isScriptBlock } from "../models/scriptData";
 import {
     itemBlockRegex,
     itemPropertiesRegex,
