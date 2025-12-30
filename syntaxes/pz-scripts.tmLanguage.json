@@ -3,59 +3,19 @@
   "patterns": [
     {
       "name": "entity.name.recipe.pz",
-      "match": "(\\bcraftRecipe\\b)\\s+([\\w\\s]+)(?:(?=\\s+\\{)|$)",
+      "match": "^\\s*(\\w+)\\s+([\\w\\s]*\\W*?)(?:\\s*{|$)",
       "captures": {
         "1": {
           "name": "keyword.control"
         },
         "2": {
           "name": "entity.name.class"
-        }
-      }
-    },
-    {
-      "name": "entity.name.item.pz",
-      "match": "(\\bitem\\b)\\s+(\\w+)",
-      "captures": {
-        "1": {
-          "name": "keyword.control"
-        },
-        "2": {
-          "name": "entity.name.class"
-        }
-      }
-    },
-    {
-      "name": "entity.name.fixing.pz",
-      "match": "(\\bfixing\\b)\\s+([\\w\\s]+)",
-      "captures": {
-        "1": {
-          "name": "keyword.control"
-        },
-        "2": {
-          "name": "entity.name.class"
-        }
-      }
-    },
-    {
-      "name": "keyword.module.pz",
-      "match": "(\\bmodule\\b)\\s+(\\w+)",
-      "captures": {
-        "1": {
-          "name": "keyword.control"
-        },
-        "2": {
-          "name": "entity.name.namespace"
         }
       }
     },
     {
       "name": "support.type.property-name",
       "match": "\\b[\\w.]+\\.[\\w.]+\\b"
-    },
-    {
-      "name": "entity.name.class",
-      "match": "\\b(inputs|outputs|component|itemMapper|Fluids)\\b"
     },
     {
       "name": "entity.name.property.pz",
