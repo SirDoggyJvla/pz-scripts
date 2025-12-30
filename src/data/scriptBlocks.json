@@ -25,6 +25,17 @@
       }
     }
   },
+  "attachment": {
+    "version": 1.0,
+    "name": "attachment",
+    "description": "",
+    "shouldHaveParent": true,
+    "parents": [
+      "vehicle",
+      "model"
+    ],
+    "parameters": {}
+  },
   "model": {
     "version": 1.0,
     "name": "model",
@@ -84,6 +95,16 @@
         "name": "cullFace"
       }
     }
+  },
+  "position": {
+    "version": 1.0,
+    "name": "position",
+    "description": "",
+    "shouldHaveParent": true,
+    "parents": [
+      "passenger"
+    ],
+    "parameters": {}
   },
   "timedAction": {
     "version": 1.0,
@@ -167,6 +188,9 @@
     "shouldHaveParent": true,
     "parents": [
       "module"
+    ],
+    "needsChildren": [
+      "inputs"
     ],
     "parameters": {
       "inputs": {
@@ -269,6 +293,26 @@
         "name": "maxInstancesPerEmitter"
       }
     }
+  },
+  "outputs": {
+    "version": 1.0,
+    "name": "ouputs",
+    "description": "",
+    "shouldHaveParent": true,
+    "parents": [
+      "craftRecipe"
+    ],
+    "parameters": {}
+  },
+  "area": {
+    "version": 1.0,
+    "name": "area",
+    "description": "",
+    "shouldHaveParent": true,
+    "parents": [
+      "vehicle"
+    ],
+    "parameters": {}
   },
   "entity": {
     "version": 1.0,
@@ -468,6 +512,16 @@
     "shouldHaveParent": true,
     "parents": [
       "module"
+    ],
+    "parameters": {}
+  },
+  "itemMapper": {
+    "version": 1.0,
+    "name": "itemMapper",
+    "description": "",
+    "shouldHaveParent": true,
+    "parents": [
+      "craftRecipe"
     ],
     "parameters": {}
   },
@@ -679,6 +733,16 @@
         "name": "seatNumber"
       }
     }
+  },
+  "inputs": {
+    "version": 1.0,
+    "name": "inputs",
+    "description": "",
+    "shouldHaveParent": true,
+    "parents": [
+      "craftRecipe"
+    ],
+    "parameters": {}
   },
   "fluid": {
     "version": 1.0,
@@ -3280,5 +3344,15 @@
         "name": "outfit"
       }
     }
+  },
+  "component": {
+    "version": 1.0,
+    "name": "component",
+    "description": "",
+    "shouldHaveParent": true,
+    "parents": [
+      "item"
+    ],
+    "parameters": {}
   }
 }

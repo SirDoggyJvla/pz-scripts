@@ -45,8 +45,11 @@ export class ScriptBlock {
         this.lineStart = document.positionAt(this.start).line;
         this.lineEnd = document.positionAt(this.end).line;
 
+        if (!this.validateBlock()) {
+            return;
+        }
         this.children = this.findChildBlocks();
-        this.validateBlock();
+        this.validateChildren();
     }
 
     public findChildBlocks(): ScriptBlock[] {
@@ -142,7 +145,7 @@ export class ScriptBlock {
         const blockData = getScriptBlockData(this.type);
         if (!blockData) {
             // abnormal case, because we already validate the block type exists before creating the ScriptBlock
-            throw new Error(`Block data not found for type ${this.type} but should have been validated earlier.`);
+            throw new Error(`Block data not found for type ${this.type} but should have been validated earlier (validateParent)`);
         }
 
         // check should have parent
@@ -177,7 +180,29 @@ export class ScriptBlock {
         return true;
     }
 
+    private validateChildren(): boolean {
+        if (this.type === "_DOCUMENT") {
+            return true;
+        }
 
+        const blockData = getScriptBlockData(this.type);
+        if (!blockData) {
+            // abnormal case, because we already validate the block type exists before creating the ScriptBlock
+            throw new Error(`Block data not found for type ${this.type} but should have been validated earlier (validateChildren)`);
+        }
+        const validChildren = blockData.needsChildren;
+        if (validChildren) {
+            const childTypes = this.children.map(child => child.type);
+            for (const neededChild of validChildren) {
+                if (!childTypes.includes(neededChild)) {
+                    this.diagnosticMissingChildBlock(this.type, this.name, this.headerStart);
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 
 
 // DIAGNOSTICS HELPERS
@@ -237,6 +262,20 @@ export class ScriptBlock {
         const blockData = getScriptBlockData(block);
         const parentBlocks = blockData?.parents?.join(", ") || "unknown";
         const message = formatDiagnostic(DiagnosticType.wrongParentBlock, { scriptBlock: `${block}`, parentBlock: parentBlock, parentBlocks: parentBlocks });
+        const diagnostic = new vscode.Diagnostic(
+            new vscode.Range(position, position),
+            message,
+            vscode.DiagnosticSeverity.Error
+        );
+        this.diagnostics.push(diagnostic);
+        console.warn(message);
+    }
+
+    private diagnosticMissingChildBlock(block: string, id: string | null, index: number): void {
+        const position = this.document.positionAt(index);
+        const blockData = getScriptBlockData(block);
+        const childBlocks = blockData?.needsChildren?.join(", ") || "unknown";
+        const message = formatDiagnostic(DiagnosticType.missingChildBlock, { scriptBlock: `${block}`, childBlocks: childBlocks });
         const diagnostic = new vscode.Diagnostic(
             new vscode.Range(position, position),
             message,

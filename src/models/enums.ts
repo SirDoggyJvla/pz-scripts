@@ -14,6 +14,7 @@ export enum DiagnosticType {
     missingParentBlock = "'{scriptBlock}' block must be inside a valid parent block: {parentBlocks}",
     hasParentBlock = "'{scriptBlock}' block cannot be inside any parent block",
     wrongParentBlock = "'{scriptBlock}' block cannot be inside parent block '{parentBlock}'. Valid parent blocks are: {parentBlocks}",
+    missingChildBlock = "'{scriptBlock}' block must have child blocks: {childBlocks}",
 }
 
 // Helper function to format

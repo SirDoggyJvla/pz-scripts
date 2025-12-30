@@ -13,6 +13,7 @@ export interface ScriptBlockData {
     name: string;
     description: string;
     shouldHaveParent: boolean;
+    needsChildren?: string[];
     parents: string[];
     parameters: { [key: string]: ScriptBlockParameter };
 }
