@@ -3,7 +3,7 @@
   "patterns": [
     {
       "name": "entity.name.recipe.pz",
-      "match": "^\\s*(\\w+)\\s+([\\w\\s]*\\W*?)(?:\\s*{|$)",
+      "match": "^\\s*(\\w+)\\s+([\\w !*]*)(?:\\s*{?$)",
       "captures": {
         "1": {
           "name": "keyword.control"
@@ -15,14 +15,26 @@
     },
     {
       "name": "support.type.property-name",
-      "match": "\\b[\\w.]+\\.[\\w.]+\\b"
+      "match": "\\b[\\w]*[a-zA-Z_][\\w]*\\.[\\w.]+\\b"
     },
     {
       "name": "entity.name.property.pz",
-      "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*([=])",
+      "match": "([\\w.!]*)(?:\\s*([=])\\s*)",
       "captures": {
         "1": { "name": "variable.parameter" },
         "2": { "name": "keyword.operator.assignment" }
+      }
+    },
+    {
+      "name": "entity.name.inputs.pz",
+      "match": "\\b(item)(?:\\s+(\\d+))\\b",
+      "captures": {
+        "1": {
+          "name": "variable.parameter"
+        },
+        "2": {
+          "name": "constant.numeric.pz"
+        }
       }
     },
     {
@@ -32,7 +44,7 @@
     },
     {
       "name": "invalid.illegal.comment.double-slash.pz",
-      "match": "//.*$"
+      "match": "(?://|--).*"
     },
     {
       "name": "constant.language.boolean.pz",
@@ -45,11 +57,11 @@
     },
     {
       "name": "constant.numeric.pz",
-      "match": "\\b\\d+(\\.\\d+)?\\b"
+      "match": "(?:\\b[+-]*\\d+(?:\\.\\d*)?|\\.\\d+)\\b"
     },
     {
       "name": "keyword.operator.assignment.pz",
-      "match": "[=:]"
+      "match": "[=:,;.]"
     }
   ]
 }
