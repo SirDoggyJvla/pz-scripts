@@ -47,6 +47,28 @@ export const itemMapperEntriesRegex = /\s*([^=\s]+)\s*=\s*([^,\n]+)/g;
 
 
 
-// Script block and parameter regex
-export const scriptBlockRegex = /^\s*(\w+)\s+([\w\s]*\W*?)(?:\s*{)/gm;
-export const parameterRegex = /([\w.!]*)(?:\s*[=]\s*)([\w:;. +-]*)(,*)/g;
+// NOTE(aoqia): I am not sure if the game expects anything before a specific token to be captured.
+//   For example: "module ThisIs\nSoCool {" -- is the module name "ThisIsSoCool" or something else?
+//   If these also true, need to change the regex further to reflect it (e.g. when I use \r\n)
+/**
+ * Matches script block headers.
+ * 
+ * @example
+ * ```ts
+ * module Example {
+ * ```
+ */
+export const scriptBlockRegex = /^\s*(?<type>\w+)\s+(?<name>[^\r\n]*?)\s*{/gm;
+
+// NOTE(aoqia): I am not sure if the game ignores whitespace at the end of values.
+//   For example: "Icon = EngineParts ," the value could either be "EngineParts" OR "EngineParts "
+//   If its the last one, just remove the last \s* (before the comma) in the pattern below
+/**
+ * Matches script block parameters.
+ *
+ * @example
+ * ```ts
+ * Tags = Epic;New,
+ * ```
+ */
+export const parameterRegex = /(?<name>\S+?)\s*=[^\S\r\n]*(?<value>[^\r\n,]+)\s*?(,?)/g;
