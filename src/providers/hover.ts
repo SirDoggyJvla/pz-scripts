@@ -1,11 +1,12 @@
 import * as vscode from "vscode";
 import { Position, TextDocument } from "vscode";
-import { getBlockType, getDescription } from "../models/scriptData";
+import { getBlockType, getDescription } from "../scripts/scriptData";
 import { provideDefinition } from "./definition";
 import path from "path";
 import { itemBlockRegex } from "../models/regexPatterns";
 import { getColor } from "../utils/themeColors";
 import { ThemeColorType } from "../models/enums";
+import { DocumentBlock } from "../scripts/scriptBlocks";
 
 export class PZHoverProvider implements vscode.HoverProvider {
     async provideHover(
@@ -18,42 +19,31 @@ export class PZHoverProvider implements vscode.HoverProvider {
         
         const word = document.getText(range);
         // const lowerWord = word.toLowerCase();
-        
-        // check in a block type, else skip hover
-        const blockType = getBlockType(document, position.line);
-        if (!blockType) {
+
+
+        // only proceed if the document has been diagnosed and parsed
+        const documentBlock = DocumentBlock.getDocumentBlock(document);
+        if (!documentBlock) {
             return null;
         }
-        
-        // verify if the word is the script block or just a parameter
-        const isScriptBlock = word == blockType;
-        const desc = getDescription(word, blockType, isScriptBlock);
-        
-        // 1. Hover pour les propriétés (PROPERTY_DESCRIPTIONS)
-        if (desc) {
-            const markdown = new vscode.MarkdownString();
-            
-            // format script block and parameters with extension colors
-            markdown.isTrusted = true;
-            const controlColor = getColor(ThemeColorType.ScriptBlock);
-            const blockText = this.colorMarkdown(blockType, controlColor);
-            
-            // title is different for script block vs parameter
-            if (isScriptBlock) {
-                markdown.appendMarkdown(blockText + '  \n');
-            } else {
-                const paramColor = getColor(ThemeColorType.Parameter);
-                const wordText = this.colorMarkdown(word, paramColor);
-                markdown.appendMarkdown(`${wordText} (${blockText})  \n`);
-            }
-            markdown.appendMarkdown('\n\n---\n\n');
-            
-            // description
-            markdown.appendMarkdown(desc);
-            return new vscode.Hover(markdown);
+
+        // retrieve the block at the position of the word
+        const block = documentBlock.getBlock(document.offsetAt(position));
+        if (!block) {
+            return null;
+        }
+
+        // 1. Word is the script block
+        if (block.isWord(word)) {
+            return new vscode.Hover(block.getHoverText());
+        }
+
+        // 2. Word is a parameter of the block
+        if (block.isParameterOf(word)) {
+            // return new vscode.Hover(block.getParameterHoverText(word));
         }
         
-        // 2. Hover pour les Base.ITEM
+        // 3. Hover pour les Base.ITEM
         const baseItemRange = document.getWordRangeAtPosition(
             position,
             /\bBase\.(\w+)\b/i
@@ -98,11 +88,7 @@ export class PZHoverProvider implements vscode.HoverProvider {
         
         return null;
     }
-    
-    private colorMarkdown(text: string, color: string): string {
-        return `<span style="color:${color};">${text}</span>`;
-    }
-    
+
     private extractItemContent(
         doc: TextDocument,
         startPosition: Position

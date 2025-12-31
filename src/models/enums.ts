@@ -1,29 +1,34 @@
 export enum ThemeColorType {
     ID = "entity.name.class",
-    ScriptBlock = "keyword.control",
-    Boolean = "constant.language.boolean",
-    Parameter = "variable.parameter",
-    Number = "constant.numeric.pz",
-    FullType = 'support.type.property-name',
+    SCRIPT_BLOCK = "keyword.control",
+    BOOLEAN = "constant.language.boolean",
+    PARAMETER = "variable.parameter",
+    NUMBER = "constant.numeric.pz",
+    FULLTYPE = 'support.type.property-name',
+}
+
+export enum DefaultText {
+    SCRIPT_BLOCK_DESCRIPTION = "No description available for this script block.",
+    PARAMETER_DESCRIPTION = "No description available for this parameter.",
 }
 
 export enum DiagnosticType {
     // formatting related diagnostics
-    missingComma = "Missing comma",
-    unmatchedBrace = "Missing closing bracket '}' for '{scriptBlock}' block",
-    notValidBlock = "'{scriptBlock}' is an unknown script block",
+    MISSING_COMMA = "Missing comma",
+    UNMATCHED_BRACE = "Missing closing bracket '}' for '{scriptBlock}' block",
+    NOT_VALID_BLOCK = "'{scriptBlock}' is an unknown script block",
     
     // parent/child block related diagnostics
-    missingParentBlock = "'{scriptBlock}' block must be inside a valid parent block: {parentBlocks}",
-    hasParentBlock = "'{scriptBlock}' block cannot be inside any parent block",
-    wrongParentBlock = "'{scriptBlock}' block cannot be inside parent block '{parentBlock}'. Valid parent blocks are: {parentBlocks}",
-    missingChildBlock = "'{scriptBlock}' block must have child blocks: {childBlocks}",
+    MISSING_PARENT_BLOCK = "'{scriptBlock}' block must be inside a valid parent block: {parentBlocks}",
+    HAS_PARENT_BLOCK = "'{scriptBlock}' block cannot be inside any parent block",
+    WRONG_PARENT_BLOCK = "'{scriptBlock}' block cannot be inside parent block '{parentBlock}'. Valid parent blocks are: {parentBlocks}",
+    MISSING_CHILD_BLOCK = "'{scriptBlock}' block must have child blocks: {childBlocks}",
    
     // ID related diagnostics
-    missingID = "'{scriptBlock}' block is missing an ID",
-    hasID = "'{scriptBlock}' block cannot have an ID",
-    invalidID = "'{scriptBlock}' block has an invalid ID '{id}'. Valid IDs are: {validIDs}",
-    hasIDinParent = "'{scriptBlock}' block cannot have an ID when inside parent block '{parentBlock}', only for: {invalidBlocks}",
+    MISSING_ID = "'{scriptBlock}' block is missing an ID",
+    HAS_ID = "'{scriptBlock}' block cannot have an ID",
+    INVALID_ID = "'{scriptBlock}' block has an invalid ID '{id}'. Valid IDs are: {validIDs}",
+    HAS_ID_IN_PARENT = "'{scriptBlock}' block cannot have an ID when inside parent block '{parentBlock}', only for: {invalidBlocks}",
 }
 
 // Helper function to format

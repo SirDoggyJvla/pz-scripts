@@ -3,66 +3,38 @@
   "patterns": [
     {
       "name": "entity.name.recipe.pz",
-      "match": "(\\bcraftRecipe\\b)\\s+([\\w\\s]+)(?:(?=\\s+\\{)|$)",
+      "match": "^\\s*(\\w+)\\s+([\\w !*]*)(?:\\s*{?$)",
       "captures": {
         "1": {
           "name": "keyword.control"
         },
         "2": {
           "name": "entity.name.class"
-        }
-      }
-    },
-    {
-      "name": "entity.name.item.pz",
-      "match": "(\\bitem\\b)\\s+(\\w+)",
-      "captures": {
-        "1": {
-          "name": "keyword.control"
-        },
-        "2": {
-          "name": "entity.name.class"
-        }
-      }
-    },
-    {
-      "name": "entity.name.fixing.pz",
-      "match": "(\\bfixing\\b)\\s+([\\w\\s]+)",
-      "captures": {
-        "1": {
-          "name": "keyword.control"
-        },
-        "2": {
-          "name": "entity.name.class"
-        }
-      }
-    },
-    {
-      "name": "keyword.module.pz",
-      "match": "(\\bmodule\\b)\\s+(\\w+)",
-      "captures": {
-        "1": {
-          "name": "keyword.control"
-        },
-        "2": {
-          "name": "entity.name.namespace"
         }
       }
     },
     {
       "name": "support.type.property-name",
-      "match": "\\b[\\w.]+\\.[\\w.]+\\b"
-    },
-    {
-      "name": "entity.name.class",
-      "match": "\\b(inputs|outputs|component|itemMapper|Fluids)\\b"
+      "match": "\\b[\\w]*[a-zA-Z_][\\w]*\\.[\\w.]+\\b"
     },
     {
       "name": "entity.name.property.pz",
-      "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*([=])",
+      "match": "([\\w.!]*)(?:\\s*([=])\\s*)",
       "captures": {
         "1": { "name": "variable.parameter" },
         "2": { "name": "keyword.operator.assignment" }
+      }
+    },
+    {
+      "name": "entity.name.inputs.pz",
+      "match": "\\b(item)(?:\\s+(\\d+))\\b",
+      "captures": {
+        "1": {
+          "name": "variable.parameter"
+        },
+        "2": {
+          "name": "constant.numeric.pz"
+        }
       }
     },
     {
@@ -72,7 +44,7 @@
     },
     {
       "name": "invalid.illegal.comment.double-slash.pz",
-      "match": "//.*$"
+      "match": "(?://|--).*"
     },
     {
       "name": "constant.language.boolean.pz",
@@ -85,11 +57,11 @@
     },
     {
       "name": "constant.numeric.pz",
-      "match": "\\b\\d+(\\.\\d+)?\\b"
+      "match": "(?:\\b[+-]*\\d+(?:\\.\\d*)?|\\.\\d+)\\b"
     },
     {
       "name": "keyword.operator.assignment.pz",
-      "match": "[=:]"
+      "match": "[=:,;.]"
     }
   ]
 }

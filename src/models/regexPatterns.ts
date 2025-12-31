@@ -1,4 +1,4 @@
-import { blockNames } from './scriptData';
+import { blockNames } from '../scripts/scriptData';
 
 // Modification pour capturer item avec ses éventuels sous-blocs component et Fluids
 export const itemBlockRegex = /\s*item\s+(\w+)\s*\{((?:[^{}]*|\{(?:[^{}]*|\{(?:[^{}]*|\{[^{}]*\})*\})*\})*)\}/g;
@@ -47,6 +47,6 @@ export const itemMapperEntriesRegex = /\s*([^=\s]+)\s*=\s*([^,\n]+)/g;
 
 
 
-// Detect script block
-//(?:(?:\s*inputs\s*{[^}]*})|(?:\s*outputs\s*{[^}]*})|(?:\s*itemMapper\s+\w+\s*{[^}]*}))*
-export const scriptBlockRegex = /^\s*(\w+)(?:\s+(\w+))?\s*{/gm;
+// Script block and parameter regex
+export const scriptBlockRegex = /^\s*(\w+)\s+([\w\s]*\W*?)(?:\s*{)/gm;
+export const parameterRegex = /([\w.!]*)(?:\s*[=]\s*)([\w:;. +-]*)(,*)/g;

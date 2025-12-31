@@ -1,16 +1,21 @@
 import * as vscode from 'vscode';
-import { Position, TextDocument, Diagnostic } from "vscode";
+import { MarkdownString, TextDocument, Diagnostic } from "vscode";
 import { scriptBlockRegex } from '../models/regexPatterns';
-import { DiagnosticType, formatDiagnostic } from '../models/enums';
-import { isScriptBlock, getScriptBlockData, ScriptBlockData } from '../models/scriptData';
+import { ThemeColorType, DiagnosticType, DefaultText, formatDiagnostic } from '../models/enums';
+import { getColor } from "../utils/themeColors";
+import { isScriptBlock, getScriptBlockData, ScriptBlockData } from './scriptData';
+import { colorText, underlineText } from '../utils/htmlFormat';
+import { ScriptParameter } from './scriptParameter';
 
 /**
  * Represents a script block in a PZ script file. Handles nested blocks and diagnostics.
  */
 export class ScriptBlock {
-    // members
+// MEMBERS
+    // extra
     document: TextDocument;
     diagnostics: Diagnostic[];
+    originalScriptBlock: string | null = null;
     
     // block data
     parent: ScriptBlock | null = null;
@@ -25,7 +30,9 @@ export class ScriptBlock {
     lineEnd: number = 0;
     headerStart: number = 0;
 
-    // constructors
+
+
+// CONSTRUCTOR
     constructor(
         document: TextDocument,
         diagnostics: Diagnostic[],
@@ -54,7 +61,67 @@ export class ScriptBlock {
         this.validateChildren();
     }
 
-    public findChildBlocks(): ScriptBlock[] {
+
+
+// INFORMATION
+
+    public isWord(word: string): boolean {
+        return this.scriptBlock === word;
+    }
+
+    public isParameterOf(word: string): boolean {
+        // TODO
+        return false;
+    }
+
+    private colorBlock(txt: string): string {
+        const color = getColor(ThemeColorType.SCRIPT_BLOCK);
+        return colorText(txt, color);
+    }
+
+    private getTree(): string {
+        const scriptBlock = "**" + this.colorBlock(this.scriptBlock) + "**";
+        const parents = [scriptBlock];
+    
+        // recursively collect parents
+        let current = this.parent;
+        while (current && current.scriptBlock !== "_DOCUMENT") {
+            parents.unshift(this.colorBlock(current.scriptBlock));
+            current = current.parent;
+        }
+        
+        // build the tree string
+        const str = parents.join(" → ");
+
+        return str;
+    }
+
+    public getHoverText(): MarkdownString {
+        const markdown = new vscode.MarkdownString();
+        markdown.isTrusted = true; // needed for html rendering
+        
+        // retrieve tree and description
+        const tree = this.getTree();
+        const desc = this.getDescription();
+
+        // assemble the hover content
+        markdown.appendMarkdown(`${tree}  \n`);
+        markdown.appendMarkdown('\n\n---\n\n');
+        markdown.appendMarkdown(desc);
+        
+        return markdown;
+    }
+
+    public getDescription(): string {
+        const blockData = getScriptBlockData(this.scriptBlock);
+        return blockData?.description || DefaultText.SCRIPT_BLOCK_DESCRIPTION;
+    }
+
+    
+
+// SEARCHERS
+
+    protected findChildBlocks(): ScriptBlock[] {
         const children: ScriptBlock[] = [];
 
         const document = this.document;
@@ -72,7 +139,7 @@ export class ScriptBlock {
 
             // retrieve the match informations
             const blockType = match[1];
-            const id = match[2];
+            const id = match[2].trim();
             const headerStart = match.index + match[0].indexOf(blockType); // position of the block keyword
             const braceStart = blockHeader.lastIndex - 1; // position of the '{'
 
@@ -93,7 +160,7 @@ export class ScriptBlock {
             // unmatched braces
             if (braceCount !== 0) {
                 this.diagnostic(
-                    DiagnosticType.unmatchedBrace,
+                    DiagnosticType.UNMATCHED_BRACE,
                     { scriptBlock: blockType },
                     headerStart
                 );
@@ -104,7 +171,8 @@ export class ScriptBlock {
             const blockEnd = i + 1; // position after the '}'
             const startOffset = braceStart + 1;
             const endOffset = blockEnd;
-            const childBlock = new ScriptBlock(
+            const blockClass = assignedClasses.get(blockType) || ScriptBlock;
+            const childBlock = new blockClass(
                 document,
                 this.diagnostics,
                 this,
@@ -126,6 +194,10 @@ export class ScriptBlock {
         return children;
     }
 
+    protected findParameters(): void {
+        
+    } 
+
 
 // CHECKERS
 
@@ -135,21 +207,21 @@ export class ScriptBlock {
         // verify it's a script block
         if (!isScriptBlock(type)) {
             this.diagnostic(
-                DiagnosticType.notValidBlock,
+                DiagnosticType.NOT_VALID_BLOCK,
                 { scriptBlock: type },
                 this.headerStart
             )
             return false;
         }
 
-        // verify parent block
-        if (!this.validateParent()) {
-            return false;
-        }
-
         // verify ID
         if (!this.validateID()) {
-            return false;
+            // return false;
+        }
+
+        // verify parent block
+        if (!this.validateParent()) {
+            // return false;
         }
 
         return true;
@@ -162,9 +234,9 @@ export class ScriptBlock {
         const shouldHaveParent = blockData.shouldHaveParent;
         if (shouldHaveParent) {
             if (!this.parent) {
-                const parentBlocks = blockData?.parents?.join(", ") || "unknown";
+                const parentBlocks = blockData?.parents?.map(p => `'${p}'`).join(", ") || "unknown";
                 this.diagnostic(
-                    DiagnosticType.missingParentBlock,
+                    DiagnosticType.MISSING_PARENT_BLOCK,
                     { scriptBlock: this.scriptBlock, parentBlocks: parentBlocks },
                     this.headerStart
                 )
@@ -176,7 +248,7 @@ export class ScriptBlock {
             // but has one when shouldn't
             if (this.parent && this.parent.scriptBlock !== "_DOCUMENT") {
                 this.diagnostic(
-                    DiagnosticType.hasParentBlock,
+                    DiagnosticType.HAS_PARENT_BLOCK,
                     { scriptBlock: this.scriptBlock }, 
                     this.headerStart
                 )
@@ -192,8 +264,8 @@ export class ScriptBlock {
             const parentType = this.parent.scriptBlock;
             if (!validParents.includes(parentType)) {
                 this.diagnostic(
-                    DiagnosticType.wrongParentBlock,
-                    { scriptBlock: this.scriptBlock, parentBlock: parentType, parentBlocks: validParents.join(", ") },
+                    DiagnosticType.WRONG_PARENT_BLOCK,
+                    { scriptBlock: this.scriptBlock, parentBlock: parentType, parentBlocks: validParents.map(p => `'${p}'`).join(", ") },
                     this.headerStart
                 )
                 return false;
@@ -212,8 +284,8 @@ export class ScriptBlock {
             for (const neededChild of validChildren) {
                 if (!childTypes.includes(neededChild)) {
                     this.diagnostic(
-                        DiagnosticType.missingChildBlock,
-                        { scriptBlock: this.scriptBlock, childBlocks: validChildren.join(", ") },
+                        DiagnosticType.MISSING_CHILD_BLOCK,
+                        { scriptBlock: this.scriptBlock, childBlocks: validChildren.map(p => `'${p}'`).join(", ") },
                         this.headerStart
                     )
                     return false;
@@ -240,7 +312,7 @@ export class ScriptBlock {
         if (!IDData) {
             if (hasID) {
                 this.diagnostic(
-                    DiagnosticType.hasID,
+                    DiagnosticType.HAS_ID,
                     { scriptBlock: this.scriptBlock }, 
                     this.headerStart
                 )
@@ -263,7 +335,7 @@ export class ScriptBlock {
         // should have an ID
         if (!hasID && shouldHaveIDfromParent) {
             this.diagnostic(
-                DiagnosticType.missingID,
+                DiagnosticType.MISSING_ID,
                 { scriptBlock: this.scriptBlock }, 
                 this.headerStart
             )
@@ -273,11 +345,11 @@ export class ScriptBlock {
         if (hasID) {
             if (!shouldHaveIDfromParent) {
                 this.diagnostic(
-                    DiagnosticType.hasIDinParent,
+                    DiagnosticType.HAS_ID_IN_PARENT,
                     { 
                         scriptBlock: this.scriptBlock, 
                         parentBlock: this.parent ? this.parent.scriptBlock : "unknown", 
-                        invalidBlocks: invalidBlocks ? invalidBlocks.join(", ") : "unknown" }, 
+                        invalidBlocks: invalidBlocks ? invalidBlocks.map(p => `'${p}'`).join(", ") : "unknown" }, 
                     this.headerStart
                 )
                 return false;
@@ -289,8 +361,8 @@ export class ScriptBlock {
                 // verify the ID is valid
                 if (!validIDs.includes(id)) {
                     this.diagnostic(
-                        DiagnosticType.invalidID,
-                        { scriptBlock: this.scriptBlock, id: id, validIDs: validIDs.join(", ") },
+                        DiagnosticType.INVALID_ID,
+                        { scriptBlock: this.scriptBlock, id: id, validIDs: validIDs.map(p => `'${p}'`).join(", ") },
                         this.headerStart
                     )
                     return false;
@@ -299,6 +371,8 @@ export class ScriptBlock {
                 // consider the ID as part of the script block type
                 // this means it will be a script block in itself with its own data
                 if (IDData.asType) {
+                    console.log(`Consider ID '${id}' as part of script block type for block '${this.scriptBlock}'`);
+                    this.originalScriptBlock = this.scriptBlock;
                     this.scriptBlock = this.scriptBlock + " " + id;
                     this.id = null; // reset ID to null
                 }
@@ -330,10 +404,38 @@ export class ScriptBlock {
     }
 }
 
+
+/**
+ * A ScriptBlock that represents a 'component' block specifically.
+ */
+export class ComponentBlock extends ScriptBlock {
+    constructor(
+        document: TextDocument,
+        diagnostics: Diagnostic[],
+        parent: ScriptBlock | null,
+        type: string,
+        name: string | null,
+        start: number,
+        end: number,
+        headerStart: number
+    ) {
+        super(document, diagnostics, parent, type, name, start, end, headerStart);
+    }
+
+    // override isWord to check original script block since ID and scriptBlock are merged
+    public isWord(word: string): boolean {
+        return this.originalScriptBlock === word;
+    }
+}
+
+
+
 /**
  * A ScriptBlock that represents the entire document. This is more a convenience class to handle everything easily.
  */
 export class DocumentBlock extends ScriptBlock {
+    private static documentBlockCache: Map<string, DocumentBlock> = new Map();
+    
     constructor(document: TextDocument, diagnostics: Diagnostic[]) {
         // Only document is provided
         const parent = null;
@@ -342,6 +444,44 @@ export class DocumentBlock extends ScriptBlock {
         const start = 0;
         const end = document.getText().length;
         super(document, diagnostics, parent, type, name, start, end, start);
+
+        // cache this document block
+        DocumentBlock.documentBlockCache.set(document.uri.toString(), this);
+    }
+
+
+// CACHE
+
+    // Static method to retrieve cached DocumentBlock
+    public static getDocumentBlock(document: vscode.TextDocument): DocumentBlock | undefined {
+        const documentBlock = DocumentBlock.documentBlockCache.get(document.uri.toString());
+        // if (!documentBlock) {
+        //     documentBlock = new DocumentBlock(document, []);
+        // }
+        return documentBlock;
+    }
+
+
+// ACCESS
+
+    public getBlock(index: number): ScriptBlock | null {
+        // check if index is within this document
+        if (index < this.headerStart || index >= this.end) {
+            return null;
+        }
+
+        // recursive search for the block containing the index
+        const searchBlock = (block: ScriptBlock): ScriptBlock | null => {
+            for (const child of block.children) {
+                if (index >= child.headerStart && index < child.end) {
+                    // found a child containing the index, search deeper
+                    const found = searchBlock(child);
+                    return found || child;
+                }
+            }
+            return null; // no child contains the index
+        }
+        return searchBlock(this);
     }
 
     // overwrite validates for this class since the rules aren't the same
@@ -349,3 +489,9 @@ export class DocumentBlock extends ScriptBlock {
     protected validateChildren(): boolean { return true; }
     protected validateID(): boolean { return true; }
 }
+
+
+
+// ASSIGNED CLASSES FOR SCRIPT BLOCK TYPES
+const assignedClasses = new Map<string, typeof ScriptBlock>();
+assignedClasses.set("component", ComponentBlock);
