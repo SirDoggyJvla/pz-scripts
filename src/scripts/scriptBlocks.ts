@@ -5,6 +5,7 @@ import { ThemeColorType, DiagnosticType, DefaultText, formatDiagnostic } from '.
 import { getColor } from "../utils/themeColors";
 import { isScriptBlock, getScriptBlockData, ScriptBlockData } from './scriptData';
 import { colorText, underlineText } from '../utils/htmlFormat';
+import { ScriptParameter } from './scriptParameter';
 
 /**
  * Represents a script block in a PZ script file. Handles nested blocks and diagnostics.
