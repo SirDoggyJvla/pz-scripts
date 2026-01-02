@@ -4,7 +4,7 @@ import { scriptBlockRegex, parameterRegex } from '../models/regexPatterns';
 import { ThemeColorType, DiagnosticType, DefaultText, formatDiagnostic } from '../models/enums';
 import { getColor } from "../utils/themeColors";
 import { isScriptBlock, getScriptBlockData, ScriptBlockData } from './scriptData';
-import { colorText, underlineText } from '../utils/htmlFormat';
+import { colorText } from '../utils/htmlFormat';
 import { ScriptParameter } from './scriptParameter';
 
 /**
@@ -18,11 +18,12 @@ export class ScriptBlock {
     originalScriptBlock: string | null = null;
     
     // block data
-    parent: ScriptBlock | null = null;
-    scriptBlock: string = "";
-    id: string | null = null;
-    children: ScriptBlock[] = [];
-    parameters: ScriptParameter[] = [];
+    parent: ScriptBlock | null = null; // the parent script block, if any
+    scriptBlock: string = ""; // the type of the script block
+    id: string | null = null; // the ID of the block, if any
+    children: ScriptBlock[] = []; // children script blocks
+    parameters: ScriptParameter[] = []; // parameters of the block
+    isTemplate: boolean = false; // whether this block is a template block
 
     // positions
     start: number = 0;
@@ -90,9 +91,7 @@ export class ScriptBlock {
     public getParameter(name: string, parameters?: ScriptParameter[]): ScriptParameter | null {
         const paramsToSearch = parameters || this.parameters;
         for (const param of paramsToSearch) {
-            console.log(`Checking parameter '${param.name}' against '${name}'`);
             if (param.name === name) {
-                console.log(`Found parameter '${name}' in block '${this.scriptBlock}'`);
                 return param;
             }
         }
@@ -108,19 +107,34 @@ export class ScriptBlock {
         return false;
     }
 
-    private colorBlock(txt: string): string {
+    public canHaveParameter(name: string): boolean {
+        const blockData = getScriptBlockData(this.scriptBlock);
+        const parameters = blockData.parameters;
+        if (parameters) {
+            const paramData = parameters[name.toLowerCase()];
+            if (paramData) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private color(txt: string): string {
         const color = getColor(ThemeColorType.SCRIPT_BLOCK);
         return colorText(txt, color);
     }
 
-    private getTree(): string {
-        const scriptBlock = "**" + this.colorBlock(this.scriptBlock) + "**";
+    public getTree(children: boolean = false): string {
+        let scriptBlock = this.color(this.scriptBlock)
+        if (!children) {
+            scriptBlock = "**" + scriptBlock + "**";
+        }
         const parents = [scriptBlock];
     
         // recursively collect parents
         let current = this.parent;
         while (current && current.scriptBlock !== "_DOCUMENT") {
-            parents.unshift(this.colorBlock(current.scriptBlock));
+            parents.unshift(this.color(current.scriptBlock));
             current = current.parent;
         }
         
@@ -243,8 +257,6 @@ export class ScriptBlock {
             const paramName = groups.name.trim();
             const paramValue = groups.value.trim();
             const comma = groups.comma.trim();
-
-            console.log(`Full Match: '${fullMatch}'`);
 
             const index = match.index!;
 
@@ -477,7 +489,7 @@ export class ScriptBlock {
 
 // DIAGNOSTICS HELPERS
 
-    private diagnostic(
+    protected diagnostic(
         type: DiagnosticType,
         params: Record<string, string>,
         index_start: number,index_end?: number,
@@ -520,6 +532,85 @@ export class ComponentBlock extends ScriptBlock {
     }
 }
 
+
+export class ItemMapperBlock extends ScriptBlock {
+    constructor(
+        document: TextDocument,
+        diagnostics: Diagnostic[],
+        parent: ScriptBlock | null,
+        type: string,
+        name: string | null,
+        start: number,
+        end: number,
+        headerStart: number
+    ) {
+        super(document, diagnostics, parent, type, name, start, end, headerStart);
+    }
+
+    public canHaveParameter(name: string): boolean {
+        // allow any parameter in itemMapper blocks
+        return true;
+    }
+}
+
+
+export class TemplateBlock extends ScriptBlock {
+    constructor(
+        document: TextDocument,
+        diagnostics: Diagnostic[],
+        parent: ScriptBlock | null,
+        type: string,
+        name: string | null,
+        start: number,
+        end: number,
+        headerStart: number
+    ) {
+        const splittedID = name ? name.split(" ") : null;
+        if (splittedID) {
+            type = splittedID[0];
+            name = splittedID.slice(1).join(" ") || null;
+        }
+        
+        super(document, diagnostics, parent, type, name, start, end, headerStart);
+        this.isTemplate = true;
+    }
+
+    protected validateBlock(): boolean {
+        const type = this.scriptBlock;
+
+        // verify it's a script block
+        if (!isScriptBlock(type)) {
+            this.diagnostic(
+                DiagnosticType.NOT_VALID_BLOCK,
+                { scriptBlock: type },
+                this.headerStart
+            )
+            return false;
+        }
+
+        // make sure an ID is provided
+        if (!this.id) {
+            this.diagnostic(
+                DiagnosticType.MISSING_ID,
+                { scriptBlock: this.scriptBlock },
+                this.headerStart
+            )
+            return false;
+        }
+
+        // verify ID
+        if (!this.validateID()) {
+            // return false;
+        }
+
+        // verify parent block
+        if (!this.validateParent()) {
+            // return false;
+        }
+
+        return true;
+    }
+}
 
 
 /**
@@ -588,3 +679,5 @@ export class DocumentBlock extends ScriptBlock {
 // ASSIGNED CLASSES FOR SCRIPT BLOCK TYPES
 const assignedClasses = new Map<string, typeof ScriptBlock>();
 assignedClasses.set("component", ComponentBlock);
+assignedClasses.set("template", TemplateBlock);
+assignedClasses.set("itemMapper", ItemMapperBlock)

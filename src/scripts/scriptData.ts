@@ -6,6 +6,8 @@ export interface ScriptBlockParameter {
     name: string;
     description?: string;
     itemTypes?: string[];
+    allowedDuplicate?: boolean;
+    canBeEmpty?: boolean;
 }
 
 export interface ScriptBlockID {

@@ -36,8 +36,9 @@ export class PZHoverProvider implements vscode.HoverProvider {
         }
 
         // 2. Word is a parameter of the block
-        if (block.isParameterOf(word)) {
-            // return new vscode.Hover(block.getParameterHoverText(word));
+        const parameter = block.getParameter(word);
+        if (parameter) {
+            return new vscode.Hover(parameter.getHoverText());
         }
         
         // 3. Hover pour les Base.ITEM

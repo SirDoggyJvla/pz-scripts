@@ -2,7 +2,9 @@ import * as vscode from 'vscode';
 import { MarkdownString, TextDocument, Diagnostic } from "vscode";
 import { ScriptBlock } from "./scriptBlocks";
 import { ThemeColorType, DiagnosticType, DefaultText, formatDiagnostic } from '../models/enums';
-import { getScriptBlockData } from './scriptData';
+import { getScriptBlockData, ScriptBlockParameter } from './scriptData';
+import { getColor } from "../utils/themeColors";
+import { colorText } from '../utils/htmlFormat';
 
 export class ScriptParameter {
 // MEMBERS
@@ -77,47 +79,114 @@ export class ScriptParameter {
         ));
     }
 
+    private getLineEnd(): number {
+        const line = this.document.positionAt(this.valueEnd).line;
+        const lineEndPosition = this.document.lineAt(line).range.end;
+        return this.document.offsetAt(lineEndPosition);
+    }
+
+// INFORMATION
+
+    private color(txt: string): string {
+        const color = getColor(ThemeColorType.PARAMETER);
+        return colorText(txt, color);
+    }
+
+    private getTree(): string {
+        const parameter = "**" + this.color(this.name) + "**";
+        const parents = this.parent.getTree(true);
+        return parents + " → " + parameter;
+    }
+
+    public getHoverText(): MarkdownString {
+        const markdown = new vscode.MarkdownString();
+        markdown.isTrusted = true; // needed for html rendering
+
+        // retrieve tree and description
+        const tree = this.getTree();
+        const desc = this.getDescription();
+
+        // assemble the hover content
+        markdown.appendMarkdown(`${tree}  \n`);
+        markdown.appendMarkdown('\n\n---\n\n');
+        markdown.appendMarkdown(desc);
+        
+        return markdown;
+    }
 
 
-// CHECKERS
+// DATA
 
-    private validateParameter(): boolean {
+    public getParameterData(): ScriptBlockParameter | null {
         const blockData = getScriptBlockData(this.parent.scriptBlock);
         const parameters = blockData.parameters;
         const name = this.name;
         const lowerName = name.toLowerCase();
 
-        // check if parameter exists in this block
         if (parameters) {
             const parameterData = parameters[lowerName];
-            if (!parameterData) {
-                this.diagnostic(
-                    DiagnosticType.UNKNOWN_PARAMETER,
-                    { parameter: name, scriptBlock: this.parent.scriptBlock },
-                    this.parameterStart
-                );
-                return false;
+            if (parameterData) {
+                return parameterData;
             }
+        }
+        
+        return null;
+    }
+
+    public getDescription(): string {
+        const parameterData = this.getParameterData();
+        return parameterData?.description || DefaultText.SCRIPT_BLOCK_DESCRIPTION;
+    }
+
+    public canBeDuplicate(): boolean {
+        const parameterData = this.getParameterData();
+        if (parameterData) {
+            return parameterData.allowedDuplicate === true;
+        }
+        return false;
+    }
+
+    public canBeEmpty(): boolean {
+        const parameterData = this.getParameterData();
+        if (parameterData) {
+            return parameterData.canBeEmpty === true;
+        }
+        return false;
+    }
+
+
+// CHECKERS
+
+    protected validateParameter(): boolean {
+        const name = this.name;
+
+        // check if parameter exists in this block
+        if (!this.parent.canHaveParameter(name)) {
+            this.diagnostic(
+                DiagnosticType.UNKNOWN_PARAMETER,
+                { parameter: name, scriptBlock: this.parent.scriptBlock },
+                this.parameterStart,
+                this.parameterEnd,
+                vscode.DiagnosticSeverity.Hint
+            );
+            // return false;
         }
 
         // check for duplicate
-        if (this.isDuplicate) {
-            this.diagnostic(
-                DiagnosticType.DUPLICATE_PARAMETER,
-                { parameter: name, scriptBlock: this.parent.scriptBlock },
-                this.parameterStart,
-                this.parameterEnd
-            );
+        if (this.isDuplicate && !this.canBeDuplicate()) {
+            this.diagnosticDuplicate();
             return false;
         }
 
         // check if value is missing
-        if (this.value === "") {
+        if (this.value === "" && !this.canBeEmpty()) {
+            const lineEnd = this.getLineEnd();
             this.diagnostic(
                 DiagnosticType.MISSING_VALUE,
                 { parameter: name },
-                this.parameterStart,
-                this.valueEnd
+                this.valueStart,
+                lineEnd,
+                vscode.DiagnosticSeverity.Hint
             );
             return false;
         }
@@ -149,15 +218,20 @@ export class ScriptParameter {
 // DIAGNOSTICS HELPERS
 
     public setAsDuplicate(): void {
-        if (!this.isDuplicate) {
+        if (!this.isDuplicate && !this.canBeDuplicate()) {
             this.isDuplicate = true;
-            this.diagnostic(
-                DiagnosticType.DUPLICATE_PARAMETER,
-                { parameter: this.name, scriptBlock: this.parent.scriptBlock },
-                this.parameterStart,
-                this.parameterEnd
-            );
+            this.diagnosticDuplicate();
         }
+    }
+
+    private diagnosticDuplicate(): void {
+        this.diagnostic(
+            DiagnosticType.DUPLICATE_PARAMETER,
+            { parameter: this.name, scriptBlock: this.parent.scriptBlock },
+            this.parameterStart,
+            this.parameterEnd,
+            vscode.DiagnosticSeverity.Warning
+        );
     }
 
     private diagnostic(
