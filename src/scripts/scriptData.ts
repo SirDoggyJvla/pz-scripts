@@ -1,6 +1,6 @@
 import { TextDocument, Position } from 'vscode';
 import SCRIPTS_TYPES from '../data/scriptBlocks.json';
-
+import { DOCUMENT_IDENTIFIER } from '../models/enums';
 
 export interface IndexRange {
     start: number;
@@ -13,6 +13,9 @@ export interface ScriptBlockParameter {
     itemTypes?: string[];
     allowedDuplicate?: boolean;
     canBeEmpty?: boolean;
+    default?: string | number | boolean | string[];
+    type?: "string" | "int" | "float" | "boolean" | "array";
+    required?: boolean;
 }
 
 export interface ScriptBlockID {
@@ -115,4 +118,49 @@ export function getScriptBlockData(blockType: string): ScriptBlockData {
     }
     const blockData = SCRIPTS_TYPES[blockType as keyof typeof SCRIPTS_TYPES] as ScriptBlockData;
     return blockData;
+}
+
+export function canHaveParent(blockType: string, parentType: string): boolean {
+    const blockData = getScriptBlockData(blockType);
+    if (!blockData.shouldHaveParent && parentType === DOCUMENT_IDENTIFIER) {
+        return true;
+    }
+    return blockData.parents.includes(parentType);
+}
+
+export function shouldHaveID(blockType: string, parentType: string): boolean {
+    const blockData = getScriptBlockData(blockType);
+    const IDData = blockData.ID;
+    if (!IDData) { return false; }
+
+    return shouldChildrenHaveID(blockType, parentType);
+}
+
+export function shouldChildrenHaveID(blockType: string, parentType: string): boolean {
+    const childrenBlockData = getScriptBlockData(blockType);
+    const IDData = childrenBlockData.ID;
+    if (!IDData) { return false; }
+
+    // used to check if the parent block requires an ID for this subblock
+    const invalidBlocks = IDData.parentsWithout;
+    let shouldHaveIDfromParent = true;
+    if (invalidBlocks) {
+        if (invalidBlocks.includes(parentType)) {
+            shouldHaveIDfromParent = false;
+        }
+    }
+
+    return shouldHaveIDfromParent;
+}
+
+export function listRequiredParameters(blockType: string): ScriptBlockParameter[] {
+    const blockData = getScriptBlockData(blockType);
+    const requiredParams: ScriptBlockParameter[] = [];
+    for (const paramName in blockData.parameters) {
+        const param = blockData.parameters[paramName];
+        if (param.required) {
+            requiredParams.push(param);
+        }
+    }
+    return requiredParams;
 }

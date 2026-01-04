@@ -83,6 +83,9 @@
           ],
           "keyword.control.pz": [
             "keyword.control"
+          ],
+          "support.type.property-name.pz": [
+            "support.type.property-name"
           ]
         }
       }

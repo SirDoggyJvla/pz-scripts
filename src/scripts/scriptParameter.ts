@@ -7,10 +7,9 @@ import {
     ScriptBlockParameter, 
     IndexRange, 
     InputAnalysisProperty,
-    InputParameterData,
-    InputProperty
+    InputParameterData
 } from './scriptData';
-import { getColor } from "../utils/themeColors";
+import { getColor, getFontStyle } from "../utils/themeColors";
 import { colorText } from '../utils/htmlFormat';
 import { inputsOutputsRegex } from '../models/regexPatterns';
 
@@ -91,13 +90,55 @@ export class ScriptParameter {
 
 // INFORMATION
 
-    private color(txt: string): string {
-        const color = getColor(ThemeColorType.PARAMETER);
-        return colorText(txt, color);
+    private color(txt: string, colorType: ThemeColorType = ThemeColorType.PARAMETER): string {
+        const color = getColor(colorType);
+        const fontStyle = getFontStyle(colorType);
+        return colorText(txt, color, fontStyle);
     }
 
     private getTree(): string {
-        const parameter = "**" + this.color(this.parameter) + "**";
+        let parameter = "**" + this.color(this.parameter) + "**";
+        const parameterData = this.getParameterData();
+        if (parameterData) {
+            const type = parameterData.type
+            if (type) {
+                const operator = `${this.color(":", ThemeColorType.OPERATOR)}`;
+                const typeColored = `${this.color(type, ThemeColorType.TYPE)}`;
+                parameter += ` ${operator} ${typeColored}`;
+            }
+            const defaultValue = parameterData.default;
+            if (defaultValue !== undefined) {
+                const operator = `${this.color("=", ThemeColorType.OPERATOR)}`;
+                let text;
+                if (type) {
+                    let colorType = ThemeColorType.STRING;
+                    // determine color based on type
+                    switch (type) {
+                        case "int":
+                        case "float":
+                            text = this.color(String(defaultValue), ThemeColorType.NUMBER);
+                            break;
+                        case "boolean":
+                            text = this.color(String(defaultValue), ThemeColorType.BOOLEAN);
+                            break;
+                        case "array":
+                            // color array elements first
+                            if (Array.isArray(defaultValue) && defaultValue.length > 1) {
+                                const coloredElements = (defaultValue as string[]).map(elem => this.color(elem, ThemeColorType.STRING));
+                                text = (coloredElements as string[]).join("; ")
+                            }
+                            break;
+                    }
+                    text = text || this.color(String(defaultValue), colorType);
+                
+                // default color as string if no type provided
+                } else {
+                    text = this.color(String(defaultValue), ThemeColorType.STRING)
+                }
+                const defaultValueColored = `${text}`;
+                parameter += ` ${operator} ${defaultValueColored}`;
+            }
+        }
         const parents = this.parent.getTree(true);
         return parents + " → " + parameter;
     }

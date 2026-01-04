@@ -21,7 +21,7 @@ export const itemBlockRegex = /\s*item\s+(\w+)\s*\{((?:[^{}]*|\{(?:[^{}]*|\{(?:[
  * {
  * ```
  */
-export const scriptBlockRegex = /^\s*(?<type>\w+)\s+(?<name>[^\r\n]*?)\s*{/gm;
+export const scriptBlockRegex = /^\s*(?<type>\w+)[^\r\n]?(?<name>[^\r\n]*?)\s*{/gm;
 
 
 // NOTE(aoqia): I am not sure if the game ignores whitespace at the end of values.

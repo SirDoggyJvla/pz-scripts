@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 import { MarkdownString, TextDocument, Diagnostic } from "vscode";
 import { scriptBlockRegex, parameterRegex, inputsOutputsRegex } from '../models/regexPatterns';
-import { ThemeColorType, DiagnosticType, DefaultText, diagnostic } from '../models/enums';
-import { getColor } from "../utils/themeColors";
+import { DOCUMENT_IDENTIFIER, ThemeColorType, DiagnosticType, DefaultText, diagnostic } from '../models/enums';
+import { getColor, getFontStyle } from "../utils/themeColors";
 import { isScriptBlock, getScriptBlockData, ScriptBlockData, IndexRange } from './scriptData';
 import { colorText } from '../utils/htmlFormat';
 import { ScriptParameter, InputsItemParameter, InputsFluidParameter, } from './scriptParameter';
@@ -119,9 +119,10 @@ export class ScriptBlock {
         return false;
     }
 
-    private color(txt: string): string {
-        const color = getColor(ThemeColorType.SCRIPT_BLOCK);
-        return colorText(txt, color);
+    private color(txt: string, colorType: ThemeColorType = ThemeColorType.SCRIPT_BLOCK): string {
+        const color = getColor(colorType);
+        const fontStyle = getFontStyle(colorType);
+        return colorText(txt, color, fontStyle);
     }
 
     public getTree(children: boolean = false): string {
@@ -133,7 +134,7 @@ export class ScriptBlock {
     
         // recursively collect parents
         let current = this.parent;
-        while (current && current.scriptBlock !== "_DOCUMENT") {
+        while (current && current.scriptBlock !== DOCUMENT_IDENTIFIER) {
             parents.unshift(this.color(current.scriptBlock));
             current = current.parent;
         }
@@ -165,6 +166,41 @@ export class ScriptBlock {
         return blockData?.description || DefaultText.SCRIPT_BLOCK_DESCRIPTION;
     }
 
+    public canHaveParent(parentBlock: string): boolean {
+        const blockData = getScriptBlockData(this.scriptBlock);
+        const validParents = blockData.parents;
+        if (this.scriptBlock in validParents) {
+            return true;
+        }
+        return false;
+    }
+
+    public getRequiredChildren(): string[] | null {
+        const blockData = getScriptBlockData(this.scriptBlock);
+        return blockData.needsChildren || null;
+    }
+
+    public shouldHaveID(): boolean {
+        if (!this.parent) { return true; } // there should always be a parent anyway
+        return this.parent.shouldChildrenHaveID(this.scriptBlock);
+    }
+
+    public shouldChildrenHaveID(childrenBlock: string): boolean {
+        const childrenBlockData = getScriptBlockData(childrenBlock);
+        const IDData = childrenBlockData.ID;
+        if (!IDData) { return false; }
+
+        // used to check if the parent block requires an ID for this subblock
+        const invalidBlocks = IDData.parentsWithout;
+        let shouldHaveIDfromParent = true;
+        if (invalidBlocks) {
+            if (invalidBlocks.includes(this.scriptBlock)) {
+                shouldHaveIDfromParent = false;
+            }
+        }
+
+        return shouldHaveIDfromParent;
+    }
     
 
 // SEARCHERS
@@ -346,7 +382,7 @@ export class ScriptBlock {
         // shouldn't have parent
         } else {
             // but has one when shouldn't
-            if (this.parent && this.parent.scriptBlock !== "_DOCUMENT") {
+            if (this.parent && this.parent.scriptBlock !== DOCUMENT_IDENTIFIER) {
                 this.diagnostic(
                     DiagnosticType.HAS_PARENT_BLOCK,
                     { scriptBlock: this.scriptBlock }, 
@@ -397,7 +433,7 @@ export class ScriptBlock {
     }
 
     protected validateID(): boolean {
-        if (this.scriptBlock === "_DOCUMENT") {
+        if (this.scriptBlock === DOCUMENT_IDENTIFIER) {
             return true;
         }
 
@@ -473,7 +509,6 @@ export class ScriptBlock {
                 // consider the ID as part of the script block type
                 // this means it will be a script block in itself with its own data
                 if (IDData.asType) {
-                    console.log(`Consider ID '${id}' as part of script block type for block '${this.scriptBlock}'`);
                     this.originalScriptBlock = this.scriptBlock;
                     this.scriptBlock = this.scriptBlock + " " + id;
                     this.id = null; // reset ID to null
@@ -710,7 +745,7 @@ export class DocumentBlock extends ScriptBlock {
     constructor(document: TextDocument, diagnostics: Diagnostic[]) {
         // Only document is provided
         const parent = null;
-        const type = "_DOCUMENT";
+        const type = DOCUMENT_IDENTIFIER;
         const name = null;
         const start = 0;
         const end = document.getText().length;

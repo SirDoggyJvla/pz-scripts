@@ -406,7 +406,8 @@
       },
       "tags": {
         "name": "tags",
-        "description": "Tags to define the special behavior of the recipe."
+        "description": "Tags to define the special behavior of the recipe.",
+        "required": true
       },
       "time": {
         "name": "time",
@@ -443,9 +444,6 @@
     "parameters": {
       "category": {
         "name": "category"
-      },
-      "clip": {
-        "name": "clip"
       },
       "loop": {
         "name": "loop"
@@ -577,6 +575,12 @@
       },
       "isprop": {
         "name": "isProp"
+      },
+      "onisvalid": {
+        "name": "OnIsValid"
+      },
+      "timedactiononisvalid": {
+        "name": "TimedActionOnIsValid"
       }
     }
   },
@@ -835,7 +839,8 @@
       },
       "tags": {
         "name": "tags",
-        "description": "Tags to define the special behavior of the recipe."
+        "description": "Tags to define the special behavior of the recipe.",
+        "required": true
       },
       "time": {
         "name": "time",
@@ -1332,7 +1337,9 @@
         "name": "AcceptMediaType",
         "itemTypes": [
           "radio"
-        ]
+        ],
+        "type": "int",
+        "default": -1
       },
       "activateditem": {
         "name": "ActivatedItem",
@@ -1492,7 +1499,9 @@
         "name": "BaseSpeed",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "basevolumerange": {
         "name": "BaseVolumeRange",
@@ -1639,7 +1648,9 @@
           "clothing",
           "container",
           "normal"
-        ]
+        ],
+        "type": "boolean",
+        "default": true
       },
       "cannedfood": {
         "name": "CannedFood",
@@ -1691,7 +1702,9 @@
         "name": "Capacity",
         "itemTypes": [
           "container"
-        ]
+        ],
+        "type": "int",
+        "default": -1
       },
       "carbohydrates": {
         "name": "Carbohydrates",
@@ -1725,7 +1738,9 @@
         "name": "ClickSound",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "string",
+        "default": "Stormy9mmClick"
       },
       "clipsize": {
         "name": "ClipSize",
@@ -1786,7 +1801,9 @@
           "literature",
           "normal",
           "weapon"
-        ]
+        ],
+        "type": "int",
+        "default": 255
       },
       "colorgreen": {
         "name": "ColorGreen",
@@ -1796,7 +1813,9 @@
           "literature",
           "normal",
           "weapon"
-        ]
+        ],
+        "type": "int",
+        "default": 255
       },
       "colorred": {
         "name": "ColorRed",
@@ -1806,14 +1825,18 @@
           "literature",
           "normal",
           "weapon"
-        ]
+        ],
+        "type": "int",
+        "default": 255
       },
       "combatspeedmodifier": {
         "name": "CombatSpeedModifier",
         "itemTypes": [
           "clothing",
           "container"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "conditionaffectscapacity": {
         "name": "ConditionAffectsCapacity",
@@ -1827,7 +1850,9 @@
           "clothing",
           "normal",
           "weapon"
-        ]
+        ],
+        "type": "int",
+        "default": 10
       },
       "conditionloweroffroad": {
         "name": "ConditionLowerOffroad",
@@ -1852,7 +1877,9 @@
           "normal",
           "radio",
           "weapon"
-        ]
+        ],
+        "type": "int",
+        "default": 10
       },
       "consolidateoption": {
         "name": "ConsolidateOption",
@@ -1885,7 +1912,9 @@
         "name": "count",
         "itemTypes": [
           "normal"
-        ]
+        ],
+        "type": "int",
+        "default": 1
       },
       "critdmgmultiplier": {
         "name": "CritDmgMultiplier",
@@ -1897,7 +1926,9 @@
         "name": "CriticalChance",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 20.0
       },
       "customcontextmenu": {
         "name": "CustomContextMenu",
@@ -1972,7 +2003,9 @@
           "drainable",
           "radio",
           "weaponpart"
-        ]
+        ],
+        "type": "boolean",
+        "default": true
       },
       "discomfortmodifier": {
         "name": "DiscomfortModifier",
@@ -2005,13 +2038,17 @@
         "name": "DoorDamage",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "int",
+        "default": 1
       },
       "doorhitsound": {
         "name": "DoorHitSound",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "string",
+        "default": "BaseballBatHit"
       },
       "doubleclickrecipe": {
         "name": "DoubleClickRecipe",
@@ -2075,7 +2112,9 @@
         "name": "EnduranceMod",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "engineloudness": {
         "name": "engineLoudness",
@@ -2264,7 +2303,9 @@
         "name": "HaveChamber",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "boolean",
+        "default": true
       },
       "headcondition": {
         "name": "HeadCondition",
@@ -2278,7 +2319,9 @@
         "itemTypes": [
           "normal",
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "headconditionmax": {
         "name": "HeadConditionMax",
@@ -2290,7 +2333,9 @@
         "name": "HearingModifier",
         "itemTypes": [
           "clothing"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "herbalisttype": {
         "name": "HerbalistType",
@@ -2320,13 +2365,17 @@
         "name": "HitFloorSound",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "string",
+        "default": "BatOnFloor"
       },
       "hitsound": {
         "name": "HitSound",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "string",
+        "default": "BaseballBatHit"
       },
       "hungerchange": {
         "name": "HungerChange",
@@ -2353,7 +2402,9 @@
           "radio",
           "weapon",
           "weaponpart"
-        ]
+        ],
+        "type": "string",
+        "default": "None"
       },
       "iconcolormask": {
         "name": "IconColorMask",
@@ -2387,13 +2438,17 @@
         "name": "IdleAnim",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "string",
+        "default": "Idle"
       },
       "impactsound": {
         "name": "ImpactSound",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "string",
+        "default": "BaseballBatHit"
       },
       "insertallbulletsreload": {
         "name": "InsertAllBulletsReload",
@@ -2528,7 +2583,9 @@
         "name": "JamGunChance",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "keepondeplete": {
         "name": "KeepOnDeplete",
@@ -2547,7 +2604,9 @@
         "name": "KnockdownMod",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "learnedrecipes": {
         "name": "LearnedRecipes",
@@ -2587,7 +2646,9 @@
         "name": "LvlSkillTrained",
         "itemTypes": [
           "literature"
-        ]
+        ],
+        "type": "int",
+        "default": -1
       },
       "magazine_subject": {
         "name": "magazine_subject",
@@ -2630,25 +2691,33 @@
         "name": "MaxCapacity",
         "itemTypes": [
           "normal"
-        ]
+        ],
+        "type": "int",
+        "default": -1
       },
       "maxchannel": {
         "name": "MaxChannel",
         "itemTypes": [
           "radio"
-        ]
+        ],
+        "type": "int",
+        "default": 108000
       },
       "maxdamage": {
         "name": "MaxDamage",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.5
       },
       "maxhitcount": {
         "name": "MaxHitcount",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "int",
+        "default": 1000
       },
       "maxitemsize": {
         "name": "MaxItemSize",
@@ -2660,7 +2729,9 @@
         "name": "MaxRange",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "maxrangemodifier": {
         "name": "MaxRangeModifier",
@@ -2721,13 +2792,17 @@
         "name": "MinAngle",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "minchannel": {
         "name": "MinChannel",
         "itemTypes": [
           "radio"
-        ]
+        ],
+        "type": "int",
+        "default": 88000
       },
       "mindamage": {
         "name": "MinDamage",
@@ -2758,13 +2833,19 @@
         "name": "MinutesToBurn",
         "itemTypes": [
           "food"
-        ]
+        ],
+        "type": "float",
+        "default": 120,
+        "description": "How many in-game minutes it takes to burn the food. This value must be higher than `MinutesToCook`."
       },
       "minutestocook": {
         "name": "MinutesToCook",
         "itemTypes": [
           "food"
-        ]
+        ],
+        "type": "float",
+        "default": 60,
+        "description": "How many in-game minutes it takes to cook the food. This value must be smaller than `MinutesToBurn`."
       },
       "modelweaponpart": {
         "name": "ModelWeaponPart",
@@ -2783,7 +2864,9 @@
         "name": "MultipleHitConditionAffected",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "boolean",
+        "default": true
       },
       "muzzleflashmodelkey": {
         "name": "MuzzleFlashModelKey",
@@ -2795,7 +2878,9 @@
         "name": "NeckProtectionModifier",
         "itemTypes": [
           "clothing"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "needtobeclosedoncereload": {
         "name": "needtobeclosedoncereload",
@@ -2825,19 +2910,25 @@
         "name": "NPCSoundBoost",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "numberofpages": {
         "name": "NumberOfPages",
         "itemTypes": [
           "literature"
-        ]
+        ],
+        "type": "int",
+        "default": -1
       },
       "numlevelstrained": {
         "name": "NumLevelsTrained",
         "itemTypes": [
           "literature"
-        ]
+        ],
+        "type": "int",
+        "default": 1
       },
       "onbreak": {
         "name": "OnBreak",
@@ -3020,7 +3111,9 @@
         "name": "ProjectileWeightCenter",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "protectfromrainwhenequipped": {
         "name": "ProtectFromRainWhenEquipped",
@@ -3040,7 +3133,9 @@
         "name": "PushBackMod",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "putinsound": {
         "name": "PutInSound",
@@ -3138,7 +3233,9 @@
         "name": "RemoveOnBroken",
         "itemTypes": [
           "clothing"
-        ]
+        ],
+        "type": "boolean",
+        "default": true
       },
       "removeunhappinesswhencooked": {
         "name": "RemoveUnhappinessWhenCooked",
@@ -3229,7 +3326,9 @@
         "name": "RunAnim",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "string",
+        "default": "Run"
       },
       "runspeedmodifier": {
         "name": "RunSpeedModifier",
@@ -3237,13 +3336,17 @@
           "clothing",
           "container",
           "radio"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "scaleworldicon": {
         "name": "ScaleWorldIcon",
         "itemTypes": [
           "drainable"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "scratchdefense": {
         "name": "ScratchDefense",
@@ -3283,7 +3386,9 @@
         "itemTypes": [
           "clothing",
           "normal"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "shouttype": {
         "name": "ShoutType",
@@ -3296,7 +3401,9 @@
         "name": "SkillTrained",
         "itemTypes": [
           "literature"
-        ]
+        ],
+        "type": "string",
+        "default": ""
       },
       "smokerange": {
         "name": "SmokeRange",
@@ -3308,7 +3415,9 @@
         "name": "SoundGain",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "soundmap": {
         "name": "SoundMap",
@@ -3365,13 +3474,17 @@
         "name": "SplatNumber",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "int",
+        "default": 2
       },
       "splatsize": {
         "name": "SplatSize",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "staticmodel": {
         "name": "StaticModel",
@@ -3400,13 +3513,17 @@
         "name": "StompPower",
         "itemTypes": [
           "clothing"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "stoppower": {
         "name": "StopPower",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 5.0
       },
       "stresschange": {
         "name": "StressChange",
@@ -3420,7 +3537,9 @@
         "name": "SubCategory",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "string",
+        "default": ""
       },
       "survivalgear": {
         "name": "SurvivalGear",
@@ -3455,7 +3574,9 @@
         "name": "SwingAnim",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "string",
+        "default": "Rifle"
       },
       "swingsound": {
         "name": "SwingSound",
@@ -3467,7 +3588,9 @@
         "name": "Swingtime",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "tags": {
         "name": "Tags",
@@ -3486,7 +3609,8 @@
           "radio",
           "weapon",
           "weaponpart"
-        ]
+        ],
+        "type": "array"
       },
       "thirstchange": {
         "name": "ThirstChange",
@@ -3498,13 +3622,17 @@
         "name": "ticksPerEquipUse",
         "itemTypes": [
           "drainable"
-        ]
+        ],
+        "type": "int",
+        "default": 30
       },
       "tohitmodifier": {
         "name": "ToHitModifier",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "tooltip": {
         "name": "Tooltip",
@@ -3534,7 +3662,9 @@
         "itemTypes": [
           "drainable",
           "weaponpart"
-        ]
+        ],
+        "type": "float",
+        "default": 0.96
       },
       "transmitrange": {
         "name": "TransmitRange",
@@ -3546,7 +3676,9 @@
         "name": "Trap",
         "itemTypes": [
           "normal"
-        ]
+        ],
+        "type": "boolean",
+        "default": false
       },
       "treedamage": {
         "name": "TreeDamage",
@@ -3595,13 +3727,17 @@
           "food",
           "radio",
           "weaponpart"
-        ]
+        ],
+        "type": "float",
+        "default": 0.03125
       },
       "useendurance": {
         "name": "UseEndurance",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "boolean",
+        "default": true
       },
       "usesbattery": {
         "name": "UsesBattery",
@@ -3622,7 +3758,9 @@
           "food",
           "normal",
           "radio"
-        ]
+        ],
+        "type": "boolean",
+        "default": true
       },
       "usewhileunequipped": {
         "name": "UseWhileUnequipped",
@@ -3653,7 +3791,9 @@
         "name": "VisionModifier",
         "itemTypes": [
           "clothing"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "visualaid": {
         "name": "VisualAid",
@@ -3677,7 +3817,9 @@
         "name": "WeaponLength",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 0.4
       },
       "weaponreloadtype": {
         "name": "WeaponReloadType",
@@ -3701,7 +3843,9 @@
         "name": "WeaponWeight",
         "itemTypes": [
           "weapon"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "weight": {
         "name": "Weight",
@@ -3721,7 +3865,9 @@
           "radio",
           "weapon",
           "weaponpart"
-        ]
+        ],
+        "type": "float",
+        "default": 1.0
       },
       "weightempty": {
         "name": "WeightEmpty",

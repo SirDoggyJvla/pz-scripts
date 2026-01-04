@@ -1,17 +1,32 @@
 import { TextDocument, DiagnosticSeverity, Diagnostic, Range } from "vscode";
 
+export const DOCUMENT_IDENTIFIER = "_DOCUMENT";
+
 export enum ThemeColorType {
     ID = "entity.name.class",
     SCRIPT_BLOCK = "keyword.control",
     BOOLEAN = "constant.language.boolean",
     PARAMETER = "variable.parameter",
-    NUMBER = "constant.numeric.pz",
-    FULLTYPE = 'support.type.property-name',
+    NUMBER = "constant.numeric",
+    STRING = "string.quoted.double",
+    FULLTYPE = "string.quoted.double",
+    TYPE = "support.type.property-name",
+    OPERATOR = "keyword.operator.assignment",
 }
 
 export enum DefaultText {
     SCRIPT_BLOCK_DESCRIPTION = "No description available for this script block.",
     PARAMETER_DESCRIPTION = "No description available for this parameter.",
+}
+
+export enum CompletionText {
+    BLOCK = `{scriptBlock} {id}{\n`,
+    MIDDLE = '',
+    END = '}',
+    ID = `\${{level}:id} `,
+
+    PARAMETER_AUTO = `{parameter} = \${1:value},`,
+    PARAMETER = `\t{parameter} = {value},\n`,
 }
 
 export enum DiagnosticType {
@@ -60,7 +75,7 @@ export enum DiagnosticType {
 
 
 // Diagnostic helpers
-function formatDiagnostic(message: string, params: Record<string, string>): string {
+export function formatText(message: string, params: Record<string, string>): string {
     return message.replace(/{(\w+)}/g, (_, key) => params[key] ?? "");
 }
 
@@ -74,12 +89,12 @@ export function diagnostic(
 ): void {
     const positionStart = document.positionAt(index_start);
     const positionEnd = document.positionAt(index_end);
-    const message = formatDiagnostic(type, params);
+    const message = formatText(type, params);
     const diagnostic = new Diagnostic(
         new Range(positionStart, positionEnd),
         message,
         severity
     );
     diagnostics.push(diagnostic);
-    console.warn(message);
+    // console.warn(message);
 }
