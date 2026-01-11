@@ -1,12 +1,11 @@
 import { window } from 'vscode';
+import { TextDocument, ExtensionContext } from 'vscode';
+import { DocumentBlock } from './scriptBlocks';
+
 export interface ScriptData {
     [key: string]: ScriptBlockData;
 }
 
-import { TextDocument, ExtensionContext } from 'vscode';
-// If your tsconfig has "resolveJsonModule": true, use:
-// import DEFAULT_SCRIPTS_TYPES from '../data/scriptBlocks.json';
-// Otherwise, for CommonJS, use:
 export let SCRIPTS_TYPES: ScriptData = require('../data/scriptBlocks.json');
 import { DOCUMENT_IDENTIFIER, CACHE_DURATION_MS, SCRIPT_DATA_LINK } from '../models/enums';
 
@@ -76,6 +75,9 @@ export async function initScriptBlocks(context: ExtensionContext, forceFetch: bo
     const cached: ScriptData | undefined = context.globalState.get('scriptBlocks');
     const lastFetch = context.globalState.get<number>('lastFetch', 0);
     
+    // clear DocumentBlock cache to update diagnostics
+    DocumentBlock.clearCache();
+
     // if cached and less than the config time, use it
     if (!forceFetch && cached && Date.now() - lastFetch < CACHE_DURATION_MS) {
         SCRIPTS_TYPES = cached;
